@@ -25,10 +25,10 @@
         "secondary_label": "Explore best sellers",
         "secondary_link": "shopify://collections/all",
         "note": "Curated for stacking, gifting, and everyday ritual.",
-        "text_color": "#ffffff",
-        "accent_color": "#d8c3a5",
-        "overlay_color": "#171310",
-        "overlay_opacity": 42
+        "text_color": "#faf8f5",
+        "accent_color": "#d7aea3",
+        "overlay_color": "#1d1c1a",
+        "overlay_opacity": 36
       }
     },
     "new_arrivals": {
@@ -48,13 +48,13 @@
         "cta_label": "View all new arrivals",
         "cta_link": "shopify://collections/all",
         "background_color": "#ffffff",
-        "text_color": "#1c1917",
-        "muted_color": "#6f6760",
-        "accent_color": "#8c5e58",
-        "padding_top": 84,
-        "padding_bottom": 84,
-        "mobile_padding_top": 56,
-        "mobile_padding_bottom": 56
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
       }
     },
     "shop_by_mood": {
@@ -65,7 +65,6 @@
           "type": "mood",
           "settings": {
             "collection": "all",
-            "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
             "title": "Everyday shine",
             "text": "Soft sparkle for the daily stack.",
             "link_label": "Shop the mood",
@@ -113,38 +112,35 @@
         "eyebrow": "Shop by mood",
         "heading": "Find the piece that matches the moment",
         "text": "<p>Curated paths into color, shine, sentiment, and celebration.</p>",
-        "background_color": "#f5f2f0",
-        "text_color": "#1c1917",
-        "muted_color": "#6c635b",
-        "accent_color": "#7b6758",
-        "padding_top": 84,
-        "padding_bottom": 84,
-        "mobile_padding_top": 56,
-        "mobile_padding_bottom": 56
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
       }
     },
     "brand_story": {
       "type": "premium-brand-story",
       "name": "Brand Story",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
-        "image_alt": "Editorial jewelry styling for the Candy Bead brand story",
-        "accent_image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
-        "accent_image_alt": "Close-up jewelry detail",
-        "eyebrow": "Our story",
-        "heading": "Small adornments, chosen with feeling",
-        "text": "<p>Candy Bead is built around the intimate ritual of choosing what to wear close: color for confidence, shine for ceremony, and details that make the everyday feel considered.</p><p>Each homepage edit can be tuned by collection, mood, and moment from the theme editor.</p>",
+        "collection": "all",
+        "eyebrow": "OUR STORY",
+        "heading": "Made slowly. Worn often.",
+        "text": "<p>Natural stones, pearls, and playful details come together in pieces designed to feel personal, expressive, and easy to wear every day.</p>",
         "quote": "Jewelry is a small signal, but it can change the whole mood.",
-        "cta_label": "Shop the full collection",
+        "cta_label": "Discover our story",
         "cta_link": "shopify://collections/all",
-        "background_color": "#e8ece6",
-        "text_color": "#1c1917",
-        "muted_color": "#5f6159",
-        "accent_color": "#8c5e58",
-        "padding_top": 96,
-        "padding_bottom": 96,
-        "mobile_padding_top": 60,
-        "mobile_padding_bottom": 60
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "mobile_padding_top": 68,
+        "mobile_padding_bottom": 68
       }
     },
     "best_sellers": {
@@ -164,35 +160,34 @@
         "cta_label": "Shop best sellers",
         "cta_link": "shopify://collections/all",
         "background_color": "#ffffff",
-        "text_color": "#1c1917",
-        "muted_color": "#6f6760",
-        "accent_color": "#7b6758",
-        "padding_top": 88,
-        "padding_bottom": 80,
-        "mobile_padding_top": 56,
-        "mobile_padding_bottom": 52
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
       }
     },
     "newsletter": {
       "type": "premium-newsletter",
       "name": "Newsletter",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
-        "image_alt": "Jewelry styling image for newsletter signup",
+        "fallback_image_alt": "Wrist wearing handmade bead bracelets in warm natural light",
         "eyebrow": "The edit",
-        "heading": "Get first access to new drops",
-        "text": "<p>Join for early looks at new arrivals, styling notes, and gift edits.</p>",
+        "heading": "A little beauty in your inbox.",
+        "text": "<p>New pieces, styling inspiration, and occasional notes from Candy Bead.</p>",
         "placeholder": "Email address",
         "button_label": "Sign up",
         "success_message": "Thank you for signing up.",
-        "background_color": "#1c1917",
-        "text_color": "#ffffff",
-        "muted_color": "#d7d0c8",
-        "accent_color": "#d8c3a5",
-        "padding_top": 88,
-        "padding_bottom": 88,
-        "mobile_padding_top": 60,
-        "mobile_padding_bottom": 60
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 68,
+        "mobile_padding_bottom": 68
       }
     }
   },

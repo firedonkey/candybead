@@ -115,8 +115,12 @@
     --premium-showcase-muted: {{ section.settings.muted_color }};
     --premium-showcase-accent: {{ section.settings.accent_color }};
     --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
+    --premium-editorial-body-font: var(--font-body--family);
+    --premium-showcase-paper: #faf8f5;
+    --premium-showcase-ink: #1d1c1a;
     background: var(--premium-showcase-bg);
     color: var(--premium-showcase-text);
+    font-family: var(--premium-editorial-body-font);
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__inner {
@@ -128,17 +132,18 @@
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__header {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.55fr);
-    gap: 28px;
+    gap: 32px;
     align-items: end;
-    margin-bottom: 34px;
+    margin-bottom: 46px;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__eyebrow,
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__vendor,
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__badge {
-    letter-spacing: 0;
+    font-family: var(--premium-editorial-body-font);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.4;
     font-weight: 600;
   }
@@ -153,16 +158,18 @@
     font-family: var(--premium-editorial-heading-font);
     font-style: normal;
     font-weight: 300;
-    font-size: 4.2rem;
-    line-height: 1.05;
+    font-size: 4.4rem;
+    line-height: 1.02;
     letter-spacing: 0;
     margin: 0;
+    max-width: 18ch;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__text {
     color: var(--premium-showcase-muted);
-    font-size: 1.45rem;
-    line-height: 1.6;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.48rem;
+    line-height: 1.7;
     letter-spacing: 0;
     max-width: 560px;
   }
@@ -174,21 +181,22 @@
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns }}, minmax(0, 1fr));
-    gap: 30px 18px;
+    gap: 40px 22px;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__card {
     color: inherit;
     display: grid;
-    gap: 14px;
+    gap: 18px;
     text-decoration: none;
     min-width: 0;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__media {
-    aspect-ratio: 1 / 1.16;
-    background: #f2f0ec;
-    border-radius: 4px;
+    aspect-ratio: 1 / 1.18;
+    background: var(--premium-showcase-paper);
+    border: 1px solid rgb(29 28 26 / 0.07);
+    border-radius: 2px;
     display: block;
     overflow: hidden;
     position: relative;
@@ -198,28 +206,30 @@
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__placeholder {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    box-sizing: border-box;
+    object-fit: contain;
+    padding: clamp(16px, 3.2vw, 28px);
     display: block;
     transition: transform 220ms ease;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__card:hover .premium-product-showcase__image {
-    transform: scale(1.025);
+    transform: scale(1.03);
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: 12px;
     border-radius: 2px;
-    background: rgb(255 255 255 / 0.9);
-    color: #1c1917;
-    padding: 6px 9px;
+    background: rgb(250 248 245 / 0.92);
+    color: var(--premium-showcase-ink);
+    padding: 6px 10px;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__meta {
     display: grid;
-    gap: 5px;
+    gap: 6px;
     min-width: 0;
   }
 
@@ -229,38 +239,63 @@
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__title {
     color: inherit;
-    font-size: 1.45rem;
-    line-height: 1.4;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.42rem;
+    line-height: 1.38;
     letter-spacing: 0;
+    font-weight: 500;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__price {
     color: var(--premium-showcase-muted);
-    font-size: 1.35rem;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.3rem;
     line-height: 1.4;
     letter-spacing: 0;
   }
 
-  .premium-product-showcase-{{ section.id }} .premium-product-showcase__price .price__sale {
+  .premium-product-showcase-{{ section.id }} .premium-product-showcase__price .price__sale:not(.price__hidden) {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__footer {
-    margin-top: 34px;
+    margin-top: 42px;
   }
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__link {
-    color: inherit;
+    color: var(--premium-showcase-ink);
     display: inline-flex;
     min-height: 42px;
     align-items: center;
-    border-bottom: 1px solid currentColor;
+    gap: 8px;
     text-decoration: none;
-    font-size: 1.35rem;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.28rem;
     font-weight: 600;
-    letter-spacing: 0;
+    letter-spacing: 0.04em;
+    transition: color 220ms ease;
+  }
+
+  .premium-product-showcase-{{ section.id }} .premium-product-showcase__link::after {
+    content: "\2192";
+    font-size: 1.2em;
+    line-height: 1;
+    transition: transform 220ms ease;
+  }
+
+  .premium-product-showcase-{{ section.id }} .premium-product-showcase__link:hover {
+    color: var(--premium-showcase-accent);
+  }
+
+  .premium-product-showcase-{{ section.id }} .premium-product-showcase__link:hover::after {
+    transform: translateX(3px);
+  }
+
+  .premium-product-showcase-{{ section.id }} .premium-product-showcase__link:focus-visible {
+    outline: 2px solid var(--premium-showcase-accent);
+    outline-offset: 4px;
   }
 
   @media screen and (max-width: 989px) {
@@ -270,7 +305,7 @@
     }
 
     .premium-product-showcase-{{ section.id }} .premium-product-showcase__heading {
-      font-size: 3.3rem;
+      font-size: 3.6rem;
     }
 
     .premium-product-showcase-{{ section.id }} .premium-product-showcase__grid {
@@ -295,11 +330,19 @@
 
     .premium-product-showcase-{{ section.id }} .premium-product-showcase__grid {
       grid-template-columns: repeat({{ section.settings.mobile_columns }}, minmax(0, 1fr));
-      gap: 24px 12px;
+      gap: 28px 12px;
     }
 
     .premium-product-showcase-{{ section.id }} .premium-product-showcase__media {
       aspect-ratio: 1 / 1.2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .premium-product-showcase-{{ section.id }} .premium-product-showcase__image,
+    .premium-product-showcase-{{ section.id }} .premium-product-showcase__link,
+    .premium-product-showcase-{{ section.id }} .premium-product-showcase__link::after {
+      transition: none;
     }
   }
 {% endstyle %}
@@ -405,19 +448,19 @@
       "type": "color",
       "id": "text_color",
       "label": "Text",
-      "default": "#1c1917"
+      "default": "#1d1c1a"
     },
     {
       "type": "color",
       "id": "muted_color",
       "label": "Muted text",
-      "default": "#6f6760"
+      "default": "#77716b"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent",
-      "default": "#8c5e58"
+      "default": "#d7aea3"
     },
     {
       "type": "range",
@@ -427,7 +470,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 84
+      "default": 104
     },
     {
       "type": "range",
@@ -437,7 +480,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 84
+      "default": 104
     },
     {
       "type": "range",
@@ -447,7 +490,7 @@
       "max": 88,
       "step": 4,
       "unit": "px",
-      "default": 56
+      "default": 64
     },
     {
       "type": "range",
@@ -457,7 +500,7 @@
       "max": 88,
       "step": 4,
       "unit": "px",
-      "default": 56
+      "default": 64
     }
   ],
   "presets": [

@@ -1,6 +1,6 @@
 {% liquid
   assign newsletter_image = section.settings.image
-  assign newsletter_alt = section.settings.image_alt | default: newsletter_image.alt | default: section.settings.heading | strip_html
+  assign newsletter_alt = section.settings.image_alt | default: newsletter_image.alt | default: section.settings.fallback_image_alt | default: section.settings.heading | strip_html
 %}
 
 <section class="premium-newsletter premium-newsletter-{{ section.id }}">
@@ -69,7 +69,14 @@
             loading: 'lazy'
         }}
       {% else %}
-        {{ 'hero-apparel-3' | placeholder_svg_tag: 'premium-newsletter__placeholder' }}
+        <img
+          src="{{ 'newsletter-bracelet-lifestyle.jpg' | asset_url }}"
+          alt="{{ section.settings.fallback_image_alt | default: section.settings.heading | strip_html | escape }}"
+          class="premium-newsletter__image"
+          width="1003"
+          height="1568"
+          loading="lazy"
+        >
       {% endif %}
     </div>
   </div>
@@ -82,25 +89,30 @@
     --premium-newsletter-muted: {{ section.settings.muted_color }};
     --premium-newsletter-accent: {{ section.settings.accent_color }};
     --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
+    --premium-editorial-body-font: var(--font-body--family);
+    --premium-newsletter-ink: #1d1c1a;
+    --premium-newsletter-paper: #faf8f5;
     background: var(--premium-newsletter-bg);
     color: var(--premium-newsletter-text);
+    font-family: var(--premium-editorial-body-font);
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__inner {
     width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
     margin-inline: auto;
     display: grid;
-    grid-template-columns: minmax(0, 0.88fr) minmax(320px, 0.72fr);
-    gap: 48px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.68fr);
+    gap: clamp(44px, 6vw, 76px);
     align-items: center;
     padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__eyebrow {
     color: var(--premium-newsletter-accent);
-    font-size: 1.1rem;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1rem;
     line-height: 1.4;
-    letter-spacing: 0;
+    letter-spacing: 0.16em;
     margin: 0 0 12px;
     text-transform: uppercase;
     font-weight: 600;
@@ -111,19 +123,20 @@
     font-family: var(--premium-editorial-heading-font);
     font-style: normal;
     font-weight: 300;
-    font-size: 4rem;
-    line-height: 1.08;
+    font-size: 4.8rem;
+    line-height: 1.02;
     letter-spacing: 0;
     margin: 0;
-    max-width: 12ch;
+    max-width: 12.5ch;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__text {
     color: var(--premium-newsletter-muted);
-    font-size: 1.5rem;
-    line-height: 1.65;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.52rem;
+    line-height: 1.72;
     letter-spacing: 0;
-    margin-top: 22px;
+    margin-top: 24px;
     max-width: 560px;
   }
 
@@ -132,49 +145,74 @@
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__form {
-    margin-top: 32px;
+    margin-top: 34px;
     max-width: 620px;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__field {
     display: flex;
-    border-bottom: 1px solid rgb(255 255 255 / 0.42);
+    background: rgb(250 248 245 / 0.82);
+    border: 1px solid rgb(29 28 26 / 0.18);
+    border-radius: 2px;
+    padding: 4px;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__input {
     background: transparent;
     border: 0;
-    color: inherit;
+    color: var(--premium-newsletter-ink);
     flex: 1;
     min-width: 0;
-    padding: 15px 0;
+    padding: 0 16px;
+    min-height: 50px;
+    font-family: var(--premium-editorial-body-font);
     font-size: 1.45rem;
     letter-spacing: 0;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__input::placeholder {
-    color: rgb(255 255 255 / 0.58);
+    color: rgb(29 28 26 / 0.48);
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__input:focus-visible {
-    outline: 2px solid var(--premium-newsletter-accent);
-    outline-offset: 4px;
+    outline: 0;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__field:focus-within {
+    border-color: var(--premium-newsletter-accent);
+    box-shadow: 0 0 0 2px rgb(215 174 163 / 0.28);
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__button {
-    background: transparent;
-    border: 0;
-    color: inherit;
+    background: var(--premium-newsletter-ink);
+    border: 1px solid var(--premium-newsletter-ink);
+    border-radius: 2px;
+    color: var(--premium-newsletter-paper);
     cursor: pointer;
+    font-family: var(--premium-editorial-body-font);
     font-size: 1.3rem;
     font-weight: 600;
-    letter-spacing: 0;
-    padding: 15px 0 15px 20px;
+    letter-spacing: 0.04em;
+    min-height: 50px;
+    padding: 0 24px;
     white-space: nowrap;
+    transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__button:hover {
+    background: var(--premium-newsletter-accent);
+    border-color: var(--premium-newsletter-accent);
+    color: var(--premium-newsletter-ink);
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__button:focus-visible {
+    outline: 2px solid var(--premium-newsletter-accent);
+    outline-offset: 3px;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__message {
     color: var(--premium-newsletter-accent);
+    font-family: var(--premium-editorial-body-font);
     font-size: 1.3rem;
     line-height: 1.45;
     letter-spacing: 0;
@@ -182,13 +220,13 @@
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__message--error {
-    color: #ffdfd3;
+    color: #9f3a28;
   }
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__media {
     aspect-ratio: 4 / 5;
-    background: #302b27;
-    border-radius: 6px;
+    background: #c9cec3;
+    border-radius: 2px;
     overflow: hidden;
   }
 
@@ -197,6 +235,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
   }
 
@@ -206,7 +245,7 @@
     }
 
     .premium-newsletter-{{ section.id }} .premium-newsletter__heading {
-      font-size: 3.2rem;
+      font-size: 3.6rem;
       max-width: 14ch;
     }
   }
@@ -229,19 +268,28 @@
     .premium-newsletter-{{ section.id }} .premium-newsletter__field {
       display: grid;
       gap: 14px;
-      border-bottom: 0;
+      background: transparent;
+      border: 0;
+      padding: 0;
     }
 
     .premium-newsletter-{{ section.id }} .premium-newsletter__input {
-      border-bottom: 1px solid rgb(255 255 255 / 0.42);
+      background: rgb(250 248 245 / 0.82);
+      border: 1px solid rgb(29 28 26 / 0.18);
+      border-radius: 2px;
+      min-height: 50px;
     }
 
     .premium-newsletter-{{ section.id }} .premium-newsletter__button {
       min-height: 46px;
       padding: 13px 18px;
-      border: 1px solid currentColor;
-      border-radius: 2px;
       justify-self: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .premium-newsletter-{{ section.id }} .premium-newsletter__button {
+      transition: none;
     }
   }
 {% endstyle %}
@@ -263,6 +311,12 @@
     },
     {
       "type": "text",
+      "id": "fallback_image_alt",
+      "label": "Fallback image alt text",
+      "default": "Wrist wearing handmade bead bracelets in warm natural light"
+    },
+    {
+      "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
       "default": "The edit"
@@ -271,13 +325,13 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Get first access to new drops"
+      "default": "A little beauty in your inbox."
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Join for early looks at new arrivals, styling notes, and gift edits.</p>"
+      "default": "<p>New pieces, styling inspiration, and occasional notes from Candy Bead.</p>"
     },
     {
       "type": "text",
@@ -301,25 +355,25 @@
       "type": "color",
       "id": "background_color",
       "label": "Background",
-      "default": "#1c1917"
+      "default": "#f7f4ef"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text",
-      "default": "#ffffff"
+      "default": "#1d1c1a"
     },
     {
       "type": "color",
       "id": "muted_color",
       "label": "Muted text",
-      "default": "#d7d0c8"
+      "default": "#77716b"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent",
-      "default": "#d8c3a5"
+      "default": "#d7aea3"
     },
     {
       "type": "range",
@@ -329,7 +383,7 @@
       "max": 140,
       "step": 4,
       "unit": "px",
-      "default": 88
+      "default": 104
     },
     {
       "type": "range",
@@ -339,7 +393,7 @@
       "max": 140,
       "step": 4,
       "unit": "px",
-      "default": 88
+      "default": 104
     },
     {
       "type": "range",
@@ -349,7 +403,7 @@
       "max": 96,
       "step": 4,
       "unit": "px",
-      "default": 60
+      "default": 68
     },
     {
       "type": "range",
@@ -359,7 +413,7 @@
       "max": 96,
       "step": 4,
       "unit": "px",
-      "default": 60
+      "default": 68
     }
   ],
   "presets": [

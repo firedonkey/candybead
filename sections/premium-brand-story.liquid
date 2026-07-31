@@ -1,8 +1,40 @@
 {% liquid
+  assign story_collection = section.settings.collection
+  if story_collection == blank
+    assign story_collection = collections.all
+  endif
+
+  assign fallback_story_image = blank
+  assign fallback_accent_image = blank
+  if story_collection != blank and story_collection.products_count > 0
+    for product in story_collection.products limit: 2
+      assign product_image = product.featured_media.preview_image | default: product.featured_image
+      if forloop.first
+        assign fallback_story_image = product_image
+      else
+        assign fallback_accent_image = product_image
+      endif
+    endfor
+  endif
+  assign fallback_accent_image = fallback_accent_image | default: fallback_story_image
+
   assign story_image = section.settings.image
   assign accent_image = section.settings.accent_image
+  assign story_image_class = 'premium-brand-story__image'
+  assign accent_image_class = 'premium-brand-story__image'
+
+  if story_image == blank and fallback_story_image != blank
+    assign story_image = fallback_story_image
+    assign story_image_class = story_image_class | append: ' premium-brand-story__image--product'
+  endif
+
+  if accent_image == blank and fallback_accent_image != blank
+    assign accent_image = fallback_accent_image
+    assign accent_image_class = accent_image_class | append: ' premium-brand-story__image--product'
+  endif
+
   assign story_alt = section.settings.image_alt | default: story_image.alt | default: section.settings.heading | strip_html
-  assign accent_alt = section.settings.accent_image_alt | default: accent_image.alt | default: section.settings.accent_caption | strip_html
+  assign accent_alt = section.settings.accent_image_alt | default: accent_image.alt | default: section.settings.heading | strip_html
 %}
 
 <section class="premium-brand-story premium-brand-story-{{ section.id }}">
@@ -17,7 +49,7 @@
               widths: '480, 720, 960, 1200, 1600',
               sizes: '(min-width: 990px) 48vw, 100vw',
               alt: story_alt,
-              class: 'premium-brand-story__image',
+              class: story_image_class,
               loading: 'lazy'
           }}
         {% else %}
@@ -34,7 +66,7 @@
               widths: '320, 480, 640, 900',
               sizes: '(min-width: 990px) 24vw, 48vw',
               alt: accent_alt,
-              class: 'premium-brand-story__image',
+              class: accent_image_class,
               loading: 'lazy'
           }}
         {% else %}
@@ -76,40 +108,47 @@
     --premium-story-muted: {{ section.settings.muted_color }};
     --premium-story-accent: {{ section.settings.accent_color }};
     --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
+    --premium-editorial-body-font: var(--font-body--family);
+    --premium-story-paper: #faf8f5;
+    --premium-story-ink: #1d1c1a;
     background: var(--premium-story-bg);
     color: var(--premium-story-text);
+    font-family: var(--premium-editorial-body-font);
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__inner {
     width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
     margin-inline: auto;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr);
-    gap: 56px;
+    grid-template-columns: minmax(0, 0.98fr) minmax(340px, 0.82fr);
+    gap: clamp(56px, 7vw, 96px);
     align-items: center;
     padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__media {
-    display: grid;
-    grid-template-columns: 1fr 0.62fr;
-    gap: 16px;
-    align-items: end;
+    position: relative;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap {
-    background: #e8ece6;
-    border-radius: 6px;
+    background: var(--premium-story-paper);
+    border: 1px solid rgb(29 28 26 / 0.08);
+    border-radius: 2px;
     overflow: hidden;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--main {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 5 / 6;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--accent {
     aspect-ratio: 3 / 4;
-    margin-bottom: 42px;
+    border: 10px solid var(--premium-story-bg);
+    bottom: -30px;
+    max-width: 230px;
+    position: absolute;
+    right: -24px;
+    width: 38%;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__image,
@@ -120,11 +159,23 @@
     display: block;
   }
 
+  .premium-brand-story-{{ section.id }} .premium-brand-story__image--product {
+    background: #ffffff;
+    box-sizing: border-box;
+    object-fit: contain;
+    padding: clamp(24px, 5vw, 56px);
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--accent .premium-brand-story__image--product {
+    padding: clamp(14px, 3vw, 28px);
+  }
+
   .premium-brand-story-{{ section.id }} .premium-brand-story__eyebrow {
     color: var(--premium-story-accent);
-    font-size: 1.1rem;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1rem;
     line-height: 1.4;
-    letter-spacing: 0;
+    letter-spacing: 0.16em;
     margin: 0 0 12px;
     text-transform: uppercase;
     font-weight: 600;
@@ -135,8 +186,8 @@
     font-family: var(--premium-editorial-heading-font);
     font-style: normal;
     font-weight: 300;
-    font-size: 4.8rem;
-    line-height: 1.04;
+    font-size: 5.4rem;
+    line-height: 1;
     letter-spacing: 0;
     margin: 0;
     max-width: 12ch;
@@ -144,10 +195,11 @@
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__text {
     color: var(--premium-story-muted);
-    font-size: 1.55rem;
-    line-height: 1.7;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.58rem;
+    line-height: 1.78;
     letter-spacing: 0;
-    margin-top: 24px;
+    margin-top: 28px;
     max-width: 620px;
   }
 
@@ -169,16 +221,38 @@
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__link {
-    color: inherit;
+    color: var(--premium-story-ink);
     display: inline-flex;
     min-height: 42px;
     align-items: center;
-    border-bottom: 1px solid currentColor;
+    gap: 8px;
     text-decoration: none;
-    font-size: 1.35rem;
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.28rem;
     font-weight: 600;
-    letter-spacing: 0;
+    letter-spacing: 0.04em;
     margin-top: 30px;
+    transition: color 220ms ease;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__link::after {
+    content: "\2192";
+    font-size: 1.2em;
+    line-height: 1;
+    transition: transform 220ms ease;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__link:hover {
+    color: var(--premium-story-accent);
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__link:hover::after {
+    transform: translateX(3px);
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__link:focus-visible {
+    outline: 2px solid var(--premium-story-accent);
+    outline-offset: 4px;
   }
 
   @media screen and (max-width: 989px) {
@@ -188,7 +262,7 @@
     }
 
     .premium-brand-story-{{ section.id }} .premium-brand-story__heading {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       max-width: 14ch;
     }
   }
@@ -213,11 +287,22 @@
     }
 
     .premium-brand-story-{{ section.id }} .premium-brand-story__heading {
-      font-size: 3rem;
+      font-size: 3.2rem;
     }
 
     .premium-brand-story-{{ section.id }} .premium-brand-story__quote {
       font-size: 1.6rem;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__image--product {
+      padding: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .premium-brand-story-{{ section.id }} .premium-brand-story__link,
+    .premium-brand-story-{{ section.id }} .premium-brand-story__link::after {
+      transition: none;
     }
   }
 {% endstyle %}
@@ -248,22 +333,28 @@
       "label": "Accent image alt text"
     },
     {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product image fallback collection",
+      "info": "Used for story imagery when custom images are blank."
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Our story"
+      "default": "OUR STORY"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Small adornments, chosen with feeling"
+      "default": "Made slowly. Worn often."
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Candy Bead is built around the intimate ritual of choosing what to wear close: color for confidence, shine for ceremony, and details that make the everyday feel considered.</p><p>Each homepage edit can be tuned by collection, mood, and moment from the theme editor.</p>"
+      "default": "<p>Natural stones, pearls, and playful details come together in pieces designed to feel personal, expressive, and easy to wear every day.</p>"
     },
     {
       "type": "text",
@@ -275,7 +366,7 @@
       "type": "text",
       "id": "cta_label",
       "label": "Link label",
-      "default": "Shop the full collection"
+      "default": "Discover our story"
     },
     {
       "type": "url",
@@ -286,25 +377,25 @@
       "type": "color",
       "id": "background_color",
       "label": "Background",
-      "default": "#e8ece6"
+      "default": "#f7f4ef"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text",
-      "default": "#1c1917"
+      "default": "#1d1c1a"
     },
     {
       "type": "color",
       "id": "muted_color",
       "label": "Muted text",
-      "default": "#5f6159"
+      "default": "#77716b"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent",
-      "default": "#8c5e58"
+      "default": "#d7aea3"
     },
     {
       "type": "range",
@@ -314,7 +405,7 @@
       "max": 140,
       "step": 4,
       "unit": "px",
-      "default": 96
+      "default": 112
     },
     {
       "type": "range",
@@ -324,7 +415,7 @@
       "max": 140,
       "step": 4,
       "unit": "px",
-      "default": 96
+      "default": 112
     },
     {
       "type": "range",
@@ -334,7 +425,7 @@
       "max": 96,
       "step": 4,
       "unit": "px",
-      "default": 60
+      "default": 68
     },
     {
       "type": "range",
@@ -344,7 +435,7 @@
       "max": 96,
       "step": 4,
       "unit": "px",
-      "default": 60
+      "default": 68
     }
   ],
   "presets": [
