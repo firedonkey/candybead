@@ -173,62 +173,6 @@
         "mobile_padding_bottom": 52
       }
     },
-    "benefits": {
-      "type": "premium-benefits",
-      "name": "Trust and Benefits",
-      "blocks": {
-        "benefit_checkout": {
-          "type": "benefit",
-          "settings": {
-            "marker": "01",
-            "title": "Secure checkout",
-            "text": "Protected Shopify checkout with familiar payment options."
-          }
-        },
-        "benefit_packaging": {
-          "type": "benefit",
-          "settings": {
-            "marker": "02",
-            "title": "Wrapped with care",
-            "text": "A considered unboxing moment for gifting or keeping."
-          }
-        },
-        "benefit_care": {
-          "type": "benefit",
-          "settings": {
-            "marker": "03",
-            "title": "Care guidance",
-            "text": "Simple care details help each piece stay in rotation."
-          }
-        },
-        "benefit_support": {
-          "type": "benefit",
-          "settings": {
-            "marker": "04",
-            "title": "Support by email",
-            "text": "A clear path for sizing, styling, and order questions."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_checkout",
-        "benefit_packaging",
-        "benefit_care",
-        "benefit_support"
-      ],
-      "settings": {
-        "heading": "Service details that make gifting easier",
-        "text": "<p>Use this section for the shipping, return, care, payment, and packaging promises that matter most to your customers.</p>",
-        "background_color": "#ffffff",
-        "text_color": "#1c1917",
-        "muted_color": "#6f6760",
-        "accent_color": "#8c5e58",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "mobile_padding_top": 52,
-        "mobile_padding_bottom": 52
-      }
-    },
     "newsletter": {
       "type": "premium-newsletter",
       "name": "Newsletter",
@@ -258,7 +202,6 @@
     "shop_by_mood",
     "brand_story",
     "best_sellers",
-    "benefits",
     "newsletter"
   ]
 }
