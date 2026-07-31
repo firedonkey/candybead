@@ -1,0 +1,187 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "story_intro": {
+      "type": "premium-story-intro",
+      "name": "Editorial intro",
+      "settings": {
+        "eyebrow": "OUR STORY",
+        "heading": "Jewelry for the way the day feels.",
+        "text": "<p>Some days call for something quiet. Some need a little color. Some deserve a little extra shine.</p><p>Candy Bead was created around those small changes in feeling — and the idea that the jewelry you wear can be part of them.</p>",
+        "fallback_image_alt": "Wrist wearing handmade bead bracelets in warm natural light",
+        "image_position": "center center",
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 116,
+        "padding_bottom": 96,
+        "mobile_padding_top": 72,
+        "mobile_padding_bottom": 60
+      }
+    },
+    "original_design": {
+      "type": "premium-story-chapter",
+      "name": "Original design",
+      "settings": {
+        "eyebrow": "01 — ORIGINAL BY DESIGN",
+        "heading": "It starts with an idea, not a template.",
+        "text": "<p>Every Candy Bead bracelet is designed by us from the beginning. We experiment with color, proportion, texture, and different combinations of beads until a piece has its own character.</p><p>We aren't trying to make every bracelet look the same. We're trying to make each design feel considered.</p>",
+        "fallback_image_alt": "Beads arranged as part of the Candy Bead design process",
+        "image_alignment": "left",
+        "image_ratio": "5 / 6",
+        "image_position": "center center",
+        "background_color": "#faf8f5",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
+      }
+    },
+    "made_by_hand": {
+      "type": "premium-story-chapter",
+      "name": "Made by hand",
+      "settings": {
+        "eyebrow": "02 — MADE BY HAND",
+        "heading": "One bead at a time.",
+        "text": "<p>Once a design feels right, we make it by hand.</p><p>From arranging each bead to checking the balance and finishing the bracelet, the process stays deliberately hands-on. It's slower than mass production — and that's the point.</p>",
+        "fallback_image_alt": "Handmade Candy Bead bracelet detail",
+        "image_alignment": "right",
+        "image_ratio": "4 / 5",
+        "image_position": "center center",
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
+      }
+    },
+    "individual_character": {
+      "type": "premium-story-chapter",
+      "name": "Individual character",
+      "settings": {
+        "eyebrow": "03 — MADE TO BE INDIVIDUAL",
+        "heading": "A little variation is part of the beauty.",
+        "text": "<p>Many of the materials we work with have their own variations in color, shape, texture, and pattern. Those small differences give each finished piece its own character.</p>",
+        "fallback_image_alt": "Close-up of Candy Bead bracelet materials and detail",
+        "image_alignment": "left",
+        "image_ratio": "1 / 1",
+        "image_position": "center center",
+        "background_color": "#faf8f5",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
+      }
+    },
+    "story_moods": {
+      "type": "premium-mood-grid",
+      "name": "Shop by mood",
+      "blocks": {
+        "mood_everyday": {
+          "type": "mood",
+          "settings": {
+            "collection": "everyday-shine",
+            "fallback_collection_handle": "everyday-shine",
+            "title": "Everyday Shine",
+            "text": "Soft shine for the daily stack.",
+            "link_label": "Shop the mood"
+          }
+        },
+        "mood_color": {
+          "type": "mood",
+          "settings": {
+            "collection": "color-ritual",
+            "fallback_collection_handle": "color-ritual",
+            "title": "Color Ritual",
+            "text": "Color and texture for expressive days.",
+            "link_label": "Shop the mood"
+          }
+        },
+        "mood_gift": {
+          "type": "mood",
+          "settings": {
+            "collection": "gift-ready",
+            "fallback_collection_handle": "gift-ready",
+            "title": "Gift Ready",
+            "text": "Pieces chosen for meaning and delight.",
+            "link_label": "Shop the mood"
+          }
+        },
+        "mood_evening": {
+          "type": "mood",
+          "settings": {
+            "collection": "evening-polish",
+            "fallback_collection_handle": "evening-polish",
+            "title": "Evening Polish",
+            "text": "Refined shine for after-dark plans.",
+            "link_label": "Shop the mood"
+          }
+        }
+      },
+      "block_order": [
+        "mood_everyday",
+        "mood_color",
+        "mood_gift",
+        "mood_evening"
+      ],
+      "settings": {
+        "eyebrow": "MADE FOR A MOOD",
+        "heading": "Find the one that feels like today.",
+        "text": "<p>Move through Candy Bead by feeling: quiet shine, expressive color, easy gifting, and pieces with a little more polish.</p>",
+        "background_color": "#f7f4ef",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 104,
+        "padding_bottom": 104,
+        "mobile_padding_top": 64,
+        "mobile_padding_bottom": 64
+      }
+    },
+    "final_statement": {
+      "type": "premium-story-statement",
+      "name": "Final statement",
+      "settings": {
+        "eyebrow": "CANDY BEAD",
+        "statement": "<p>Original design.<br>Made by hand.<br>Made to feel like yours.</p>",
+        "cta_label": "SHOP ALL BRACELETS",
+        "collection": "all-bracelets",
+        "fallback_collection_handle": "all-bracelets",
+        "background_color": "#faf8f5",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 112,
+        "padding_bottom": 120,
+        "mobile_padding_top": 72,
+        "mobile_padding_bottom": 76
+      }
+    }
+  },
+  "order": [
+    "story_intro",
+    "original_design",
+    "made_by_hand",
+    "individual_character",
+    "story_moods",
+    "final_statement"
+  ]
+}

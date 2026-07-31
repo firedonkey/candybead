@@ -21,9 +21,9 @@
         "heading": "Jewelry for the way the day feels",
         "text": "<p>Delicate color, polished metals, and quietly expressive pieces to layer, gift, and keep close.</p>",
         "primary_label": "Shop new arrivals",
-        "primary_link": "shopify://collections/all",
+        "primary_link": "shopify://collections/new-arrivals",
         "secondary_label": "Explore best sellers",
-        "secondary_link": "shopify://collections/all",
+        "secondary_link": "shopify://collections/best-sellers",
         "note": "Curated for stacking, gifting, and everyday ritual.",
         "text_color": "#faf8f5",
         "accent_color": "#d7aea3",
@@ -35,7 +35,8 @@
       "type": "premium-product-showcase",
       "name": "New Arrivals",
       "settings": {
-        "collection": "all",
+        "collection": "new-arrivals",
+        "fallback_collection_handle": "new-arrivals",
         "eyebrow": "New arrivals",
         "heading": "The latest pieces to layer now",
         "text": "<p>Fresh color, refined shine, and easy silhouettes selected for everyday styling.</p>",
@@ -46,7 +47,7 @@
         "show_badge": true,
         "badge_text": "New",
         "cta_label": "View all new arrivals",
-        "cta_link": "shopify://collections/all",
+        "cta_link": "",
         "background_color": "#ffffff",
         "text_color": "#1d1c1a",
         "muted_color": "#77716b",
@@ -64,41 +65,41 @@
         "mood_everyday": {
           "type": "mood",
           "settings": {
-            "collection": "all",
+            "collection": "everyday-shine",
+            "fallback_collection_handle": "everyday-shine",
             "title": "Everyday shine",
             "text": "Soft sparkle for the daily stack.",
-            "link_label": "Shop the mood",
-            "link": "shopify://collections/all"
+            "link_label": "Shop the mood"
           }
         },
         "mood_color": {
           "type": "mood",
           "settings": {
-            "collection": "all",
+            "collection": "color-ritual",
+            "fallback_collection_handle": "color-ritual",
             "title": "Color ritual",
             "text": "Candy-bright beads and playful accents.",
-            "link_label": "Shop the mood",
-            "link": "shopify://collections/all"
+            "link_label": "Shop the mood"
           }
         },
         "mood_gift": {
           "type": "mood",
           "settings": {
-            "collection": "all",
+            "collection": "gift-ready",
+            "fallback_collection_handle": "gift-ready",
             "title": "Gift ready",
             "text": "Pieces chosen for meaning and delight.",
-            "link_label": "Shop the mood",
-            "link": "shopify://collections/all"
+            "link_label": "Shop the mood"
           }
         },
         "mood_evening": {
           "type": "mood",
           "settings": {
-            "collection": "all",
+            "collection": "evening-polish",
+            "fallback_collection_handle": "evening-polish",
             "title": "Evening polish",
             "text": "Refined shine for after-dark plans.",
-            "link_label": "Shop the mood",
-            "link": "shopify://collections/all"
+            "link_label": "Shop the mood"
           }
         }
       },
@@ -128,11 +129,11 @@
       "settings": {
         "collection": "all",
         "eyebrow": "OUR STORY",
-        "heading": "Made slowly. Worn often.",
-        "text": "<p>Natural stones, pearls, and playful details come together in pieces designed to feel personal, expressive, and easy to wear every day.</p>",
-        "quote": "Jewelry is a small signal, but it can change the whole mood.",
-        "cta_label": "Discover our story",
-        "cta_link": "shopify://collections/all",
+        "heading": "Designed from a feeling. Made by hand.",
+        "text": "<p>Every Candy Bead bracelet begins as an original design — a combination of color, texture, stones, pearls, and details chosen to capture a particular mood. Each piece is then assembled by hand, one bead at a time.</p>",
+        "quote": "",
+        "cta_label": "DISCOVER OUR STORY",
+        "cta_link": "/pages/our-story",
         "background_color": "#f7f4ef",
         "text_color": "#1d1c1a",
         "muted_color": "#77716b",
@@ -147,7 +148,8 @@
       "type": "premium-product-showcase",
       "name": "Best Sellers",
       "settings": {
-        "collection": "all",
+        "collection": "best-sellers",
+        "fallback_collection_handle": "best-sellers",
         "eyebrow": "Best sellers",
         "heading": "The pieces customers keep choosing",
         "text": "<p>Trusted favorites for easy gifting, refined stacking, and repeat wear.</p>",
@@ -158,7 +160,7 @@
         "show_badge": false,
         "badge_text": "Favorite",
         "cta_label": "Shop best sellers",
-        "cta_link": "shopify://collections/all",
+        "cta_link": "",
         "background_color": "#ffffff",
         "text_color": "#1d1c1a",
         "muted_color": "#77716b",

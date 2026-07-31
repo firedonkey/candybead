@@ -1,0 +1,361 @@
+{% liquid
+  assign chapter_image = section.settings.image
+  assign chapter_alt = section.settings.image_alt | default: chapter_image.alt | default: section.settings.heading | strip_html
+  assign layout_class = 'premium-story-chapter--image-' | append: section.settings.image_alignment
+%}
+
+<section class="premium-story-chapter premium-story-chapter-{{ section.id }} {{ layout_class }}">
+  <div class="premium-story-chapter__inner">
+    <div class="premium-story-chapter__media">
+      {% if chapter_image != blank %}
+        {{
+          chapter_image
+          | image_url: width: 1600
+          | image_tag:
+            widths: '420, 640, 860, 1100, 1400, 1600',
+            sizes: '(min-width: 990px) 45vw, 100vw',
+            alt: chapter_alt,
+            class: 'premium-story-chapter__image',
+            loading: 'lazy'
+        }}
+      {% else %}
+        <img
+          src="{{ 'newsletter-bracelet-lifestyle.jpg' | asset_url }}"
+          alt="{{ section.settings.fallback_image_alt | escape }}"
+          class="premium-story-chapter__image premium-story-chapter__image--fallback"
+          width="1003"
+          height="1568"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+
+    <div class="premium-story-chapter__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="premium-story-chapter__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="premium-story-chapter__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-story-chapter__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .premium-story-chapter-{{ section.id }} {
+    --premium-story-bg: {{ section.settings.background_color }};
+    --premium-story-text: {{ section.settings.text_color }};
+    --premium-story-muted: {{ section.settings.muted_color }};
+    --premium-story-accent: {{ section.settings.accent_color }};
+    --premium-story-paper: #faf8f5;
+    --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
+    --premium-editorial-body-font: var(--font-body--family);
+    background: var(--premium-story-bg);
+    color: var(--premium-story-text);
+    font-family: var(--premium-editorial-body-font);
+    overflow: hidden;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__inner {
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.8fr);
+    gap: clamp(48px, 7vw, 96px);
+    align-items: center;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+  }
+
+  .premium-story-chapter-{{ section.id }}.premium-story-chapter--image-right .premium-story-chapter__media {
+    order: 2;
+  }
+
+  .premium-story-chapter-{{ section.id }}.premium-story-chapter--image-right .premium-story-chapter__content {
+    order: 1;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__media {
+    aspect-ratio: {{ section.settings.image_ratio }};
+    background: #c9cec3;
+    border: 1px solid rgb(29 28 26 / 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+    width: 100%;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__image--fallback {
+    object-position: center center;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__content {
+    max-width: 620px;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__eyebrow {
+    color: var(--premium-story-accent);
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__heading {
+    color: inherit;
+    font-family: var(--premium-editorial-heading-font);
+    font-size: clamp(3.6rem, 4.2vw, 5.8rem);
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0;
+    max-width: 12ch;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__text {
+    color: var(--premium-story-muted);
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.55rem;
+    letter-spacing: 0;
+    line-height: 1.78;
+    margin-top: 28px;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__text p {
+    margin-block: 0 16px;
+  }
+
+  .premium-story-chapter-{{ section.id }} .premium-story-chapter__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .premium-story-chapter-{{ section.id }}.premium-story-chapter--image-right .premium-story-chapter__media,
+    .premium-story-chapter-{{ section.id }}.premium-story-chapter--image-right .premium-story-chapter__content {
+      order: initial;
+    }
+
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__inner {
+      padding-block: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__heading {
+      font-size: 3.1rem;
+      line-height: 1.04;
+      max-width: 13ch;
+    }
+
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__text {
+      font-size: 1.34rem;
+      line-height: 1.68;
+      margin-top: 22px;
+    }
+
+    .premium-story-chapter-{{ section.id }} .premium-story-chapter__media {
+      aspect-ratio: 1 / 1.06;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium story chapter",
+  "class": "shopify-section--premium-story-chapter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "01 — ORIGINAL BY DESIGN"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "It starts with an idea, not a template."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Every Candy Bead bracelet is designed by us from the beginning. We experiment with color, proportion, texture, and different combinations of beads until a piece has its own character.</p><p>We aren't trying to make every bracelet look the same. We're trying to make each design feel considered.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "text",
+      "id": "fallback_image_alt",
+      "label": "Fallback image alt text",
+      "default": "Candy Bead bracelet detail in warm light"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Desktop image shape",
+      "options": [
+        {
+          "value": "5 / 6",
+          "label": "Portrait"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Soft portrait"
+        },
+        {
+          "value": "1 / 1",
+          "label": "Square"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape"
+        }
+      ],
+      "default": "5 / 6"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#faf8f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1d1c1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#77716b"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#d7aea3"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 48,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 48,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 32,
+      "max": 104,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 32,
+      "max": 104,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium story chapter"
+    }
+  ]
+}
+{% endschema %}

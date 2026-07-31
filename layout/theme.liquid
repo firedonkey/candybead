@@ -25,7 +25,7 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
-    {% if template.name == 'index' %}
+    {% if template.name == 'index' or template.name == 'collection' %}
       {% style %}
         @font-face {
           font-family: 'Spectral';

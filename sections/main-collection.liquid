@@ -90,6 +90,87 @@
   </results-list>
 </collection-component>
 
+{% style %}
+  #MainContent[data-template^='collection'] {
+    background: #fbf8f2;
+  }
+
+  #MainContent[data-template^='collection'] > .section-wrapper:first-child .section {
+    background: #f7f4ef;
+    border-block-end: 1px solid rgb(29 28 26 / 0.06);
+  }
+
+  #MainContent[data-template^='collection'] > .section-wrapper:first-child .section-content-wrapper {
+    max-width: 760px;
+  }
+
+  #MainContent[data-template^='collection'] > .section-wrapper:first-child h1 {
+    color: #1d1c1a;
+    font-family: 'Spectral', Georgia, 'Times New Roman', serif;
+    font-size: clamp(3.2rem, 6vw, 6.4rem);
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 0.98;
+    margin: 0;
+  }
+
+  #MainContent[data-template^='collection'] > .section-wrapper:first-child .rte,
+  #MainContent[data-template^='collection'] > .section-wrapper:first-child p {
+    color: #77716b;
+    font-size: 1.42rem;
+    line-height: 1.72;
+  }
+
+  #MainContent[data-template^='collection'] .facets-block-wrapper {
+    background: rgb(255 255 255 / 0.64);
+    border-block: 1px solid rgb(29 28 26 / 0.08);
+  }
+
+  #MainContent[data-template^='collection'] .facets {
+    color: #3a3631;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
+  }
+
+  #MainContent[data-template^='collection'] .product-grid {
+    row-gap: clamp(28px, 4vw, 48px);
+  }
+
+  #MainContent[data-template^='collection'] .product-card__content {
+    gap: 8px;
+  }
+
+  #MainContent[data-template^='collection'] .card-gallery {
+    background: #fffdf9;
+    border: 1px solid rgb(29 28 26 / 0.07);
+    transition: border-color 180ms ease, transform 220ms ease;
+  }
+
+  #MainContent[data-template^='collection'] .product-card:hover .card-gallery {
+    border-color: rgb(29 28 26 / 0.16);
+    transform: translateY(-2px);
+  }
+
+  #MainContent[data-template^='collection'] .card-gallery img {
+    object-fit: contain;
+    padding: clamp(12px, 2.2vw, 24px);
+  }
+
+  #MainContent[data-template^='collection'] .product-card :is(h3, h4, .h4, p, span) {
+    letter-spacing: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #MainContent[data-template^='collection'] > .section-wrapper:first-child h1 {
+      font-size: 3.8rem;
+    }
+
+    #MainContent[data-template^='collection'] .product-card:hover .card-gallery {
+      transform: none;
+    }
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "t:names.collection_container",

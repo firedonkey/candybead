@@ -1,0 +1,319 @@
+{% liquid
+  assign intro_image = section.settings.image
+  assign intro_alt = section.settings.image_alt | default: intro_image.alt | default: section.settings.heading | strip_html
+%}
+
+<section class="premium-story-intro premium-story-intro-{{ section.id }}">
+  <div class="premium-story-intro__inner">
+    <div class="premium-story-intro__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="premium-story-intro__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="premium-story-intro__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-story-intro__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="premium-story-intro__media">
+      {% if intro_image != blank %}
+        {{
+          intro_image
+          | image_url: width: 2200
+          | image_tag:
+            widths: '640, 900, 1200, 1600, 2000, 2200',
+            sizes: '(min-width: 990px) 82vw, 100vw',
+            alt: intro_alt,
+            class: 'premium-story-intro__image',
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      {% else %}
+        <img
+          src="{{ 'newsletter-bracelet-lifestyle.jpg' | asset_url }}"
+          alt="{{ section.settings.fallback_image_alt | escape }}"
+          class="premium-story-intro__image"
+          width="1003"
+          height="1568"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url({{ 'spectral-light.ttf' | asset_url }}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Spectral';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url({{ 'spectral-regular.ttf' | asset_url }}) format('truetype');
+  }
+
+  .premium-story-intro-{{ section.id }} {
+    --premium-story-bg: {{ section.settings.background_color }};
+    --premium-story-text: {{ section.settings.text_color }};
+    --premium-story-muted: {{ section.settings.muted_color }};
+    --premium-story-accent: {{ section.settings.accent_color }};
+    --premium-story-paper: #faf8f5;
+    --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
+    --premium-editorial-body-font: var(--font-body--family);
+    background: var(--premium-story-bg);
+    color: var(--premium-story-text);
+    font-family: var(--premium-editorial-body-font);
+    overflow: hidden;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__inner {
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__content {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(300px, 0.42fr);
+    gap: clamp(30px, 6vw, 80px);
+    align-items: end;
+    margin-bottom: clamp(44px, 6vw, 76px);
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__eyebrow {
+    color: var(--premium-story-accent);
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__heading {
+    color: inherit;
+    font-family: var(--premium-editorial-heading-font);
+    font-size: clamp(4.4rem, 6vw, 7rem);
+    font-style: normal;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 0.98;
+    margin: 0;
+    max-width: 13ch;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__text {
+    color: var(--premium-story-muted);
+    font-family: var(--premium-editorial-body-font);
+    font-size: 1.58rem;
+    letter-spacing: 0;
+    line-height: 1.74;
+    max-width: 560px;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__text p {
+    margin-block: 0 14px;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__media {
+    aspect-ratio: 16 / 8.6;
+    background: #c9cec3;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .premium-story-intro-{{ section.id }} .premium-story-intro__image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+    width: 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-story-intro-{{ section.id }} .premium-story-intro__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-story-intro-{{ section.id }} .premium-story-intro__content {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .premium-story-intro-{{ section.id }} .premium-story-intro__media {
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-story-intro-{{ section.id }} .premium-story-intro__inner {
+      padding-block: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .premium-story-intro-{{ section.id }} .premium-story-intro__heading {
+      font-size: 3.6rem;
+      line-height: 1.02;
+      max-width: 12ch;
+    }
+
+    .premium-story-intro-{{ section.id }} .premium-story-intro__text {
+      font-size: 1.36rem;
+      line-height: 1.66;
+    }
+
+    .premium-story-intro-{{ section.id }} .premium-story-intro__media {
+      aspect-ratio: 1 / 1.05;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium story intro",
+  "class": "shopify-section--premium-story-intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Jewelry for the way the day feels."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Some days call for something quiet. Some need a little color. Some deserve a little extra shine.</p><p>Candy Bead was created around those small changes in feeling — and the idea that the jewelry you wear can be part of them.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "text",
+      "id": "fallback_image_alt",
+      "label": "Fallback image alt text",
+      "default": "Wrist wearing handmade bead bracelets in warm natural light"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f7f4ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1d1c1a"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#77716b"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#d7aea3"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 56,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 116
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 48,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 36,
+      "max": 104,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 32,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium story intro"
+    }
+  ]
+}
+{% endschema %}

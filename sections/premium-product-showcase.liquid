@@ -1,5 +1,11 @@
 {% liquid
   assign showcase_collection = section.settings.collection
+  assign fallback_collection_handle = section.settings.fallback_collection_handle | strip | handleize
+
+  if showcase_collection == blank and fallback_collection_handle != blank
+    assign showcase_collection = collections[fallback_collection_handle]
+  endif
+
   if showcase_collection == blank
     assign showcase_collection = collections.all
   endif
@@ -356,6 +362,13 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "fallback_collection_handle",
+      "label": "Fallback collection handle",
+      "info": "Used when no collection is selected. Example: new-arrivals.",
+      "default": "new-arrivals"
     },
     {
       "type": "text",

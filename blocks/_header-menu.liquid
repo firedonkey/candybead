@@ -383,8 +383,8 @@
   /** mega menu **/
   .menu-list__submenu,
   .overflow-menu::part(overflow) {
-    --submenu-padding-block-start: var(--padding-3xl);
-    --submenu-padding-block-end: var(--padding-3xl);
+    --submenu-padding-block-start: clamp(32px, 4vw, 56px);
+    --submenu-padding-block-end: clamp(34px, 4.5vw, 64px);
 
     background-color: transparent;
   }
@@ -492,6 +492,10 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    background: rgb(250 248 245 / 0.98);
+    border-block-start: 1px solid rgb(29 28 26 / 0.06);
+    border-block-end: 1px solid rgb(29 28 26 / 0.08);
+    box-shadow: 0 18px 48px rgb(29 28 26 / 0.06);
   }
 
   .menu-list__submenu-inner,
@@ -522,7 +526,8 @@
     white-space: normal;
     text-decoration: none;
     display: inline-flex;
-    padding: var(--padding-2xs) 0;
+    padding: 7px 0;
+    transition: color 180ms ease, opacity 180ms ease;
 
     &:hover {
       color: var(--menu-child-active-font-color);
@@ -537,6 +542,8 @@
     line-height: var(--menu-parent-font-line-height);
     text-transform: var(--menu-parent-font-case);
     color: var(--menu-parent-font-color);
+    letter-spacing: 0.02em;
+    padding-block-end: 11px;
 
     &:hover {
       color: var(--menu-parent-active-font-color);
@@ -595,7 +602,7 @@
   .mega-menu__grid {
     display: grid;
     grid-template-columns: repeat(var(--menu-columns-tablet), minmax(0, 1fr));
-    gap: var(--menu-vertical-gap) var(--menu-horizontal-gap);
+    gap: clamp(28px, 4vw, 54px) clamp(28px, 5vw, 68px);
     width: 100%;
 
     @media screen and (min-width: 990px) {
@@ -605,6 +612,10 @@
 
   .mega-menu__column {
     grid-column: span 1;
+  }
+
+  .mega-menu__column > div > ul {
+    margin-block-start: 2px;
   }
 
   .mega-menu__column--span-2 {

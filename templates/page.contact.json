@@ -6,140 +6,82 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "premium-contact-page",
       "blocks": {
-        "title": {
-          "type": "text",
-          "name": "t:names.title",
+        "product_questions": {
+          "type": "help_item",
           "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "Product questions",
+            "text": "<p>Questions about materials, sizing, or choosing a piece.</p>"
+          }
         },
-        "content": {
-          "type": "text",
-          "name": "t:names.content",
+        "order_questions": {
+          "type": "help_item",
           "settings": {
-            "text": "{{ closest.page.content }}",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-primary--family)",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "heading": "Order questions",
+            "text": "<p>Help with an existing Candy Bead order.</p>"
+          }
+        },
+        "gifting": {
+          "type": "help_item",
+          "settings": {
+            "heading": "Gifting",
+            "text": "<p>Questions about selecting a piece for someone special.</p>"
+          }
+        },
+        "general_inquiries": {
+          "type": "help_item",
+          "settings": {
+            "heading": "General inquiries",
+            "text": "<p>Anything else you'd like to ask.</p>"
+          }
         }
       },
       "block_order": [
-        "title",
-        "content"
+        "product_questions",
+        "order_questions",
+        "gifting",
+        "general_inquiries"
       ],
       "settings": {
-        "content_direction": "column",
-        "gap": 32,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 40,
-        "padding-block-end": 0
-      }
-    },
-    "form": {
-      "type": "section",
-      "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
-          "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "input_style": "default",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        }
-      },
-      "block_order": [
-        "contact_form_UwiCkQ"
-      ],
-      "name": "t:names.contact_form",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
-        "section_width": "page-width",
-        "section_height_custom": 50,
-        "background_media": "none",
-        "background_color": "{{ settings.color_palette.background }}",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "eyebrow": "GET IN TOUCH",
+        "heading": "We'd love to hear from you.",
+        "text": "<p>Questions about a piece, an order, or finding the right bracelet? Send us a note and we'll be happy to help.</p>",
+        "image_alt": "",
+        "fallback_image_alt": "Wrist wearing handmade bead bracelets in warm natural light",
+        "image_position": "center center",
+        "form_eyebrow": "CONTACT",
+        "form_heading": "Send a note.",
+        "form_text": "<p>Tell us what you are looking for, and include an order number if your message is about an existing purchase.</p>",
+        "required_note": "* Required fields",
+        "name_label": "Name",
+        "email_label": "Email",
+        "phone_label": "Phone",
+        "optional_label": "(optional)",
+        "message_label": "Message",
+        "submit_label": "Send message",
+        "success_message": "Thank you for reaching out. Your message has been sent.",
+        "show_help": true,
+        "help_eyebrow": "CUSTOMER CARE",
+        "help_heading": "Here to help",
+        "help_text": "<p>A few common reasons to get in touch.</p>",
+        "background_color": "#f7f4ef",
+        "panel_color": "#faf8f5",
+        "text_color": "#1d1c1a",
+        "muted_color": "#77716b",
+        "accent_color": "#d7aea3",
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "mobile_padding_top": 72,
+        "mobile_padding_bottom": 72
       }
     }
   },
   "order": [
-    "main",
-    "form"
+    "main"
   ]
 }

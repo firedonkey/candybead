@@ -37,7 +37,7 @@
   assign accent_alt = section.settings.accent_image_alt | default: accent_image.alt | default: section.settings.heading | strip_html
 %}
 
-<section class="premium-brand-story premium-brand-story-{{ section.id }}">
+<section id="our-story" class="premium-brand-story premium-brand-story-{{ section.id }}">
   <div class="premium-brand-story__inner">
     <div class="premium-brand-story__media">
       <div class="premium-brand-story__image-wrap premium-brand-story__image-wrap--main">
@@ -93,7 +93,7 @@
       {% endif %}
 
       {% if section.settings.cta_label != blank %}
-        <a class="premium-brand-story__link" href="{{ section.settings.cta_link | default: '/collections/all' }}">
+        <a class="premium-brand-story__link" href="{{ section.settings.cta_link | default: '/pages/our-story' }}">
           {{ section.settings.cta_label | escape }}
         </a>
       {% endif %}
@@ -114,6 +114,7 @@
     background: var(--premium-story-bg);
     color: var(--premium-story-text);
     font-family: var(--premium-editorial-body-font);
+    scroll-margin-top: calc(var(--header-height, 72px) + 24px);
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__inner {
@@ -348,25 +349,24 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "Made slowly. Worn often."
+      "default": "Designed from a feeling. Made by hand."
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Natural stones, pearls, and playful details come together in pieces designed to feel personal, expressive, and easy to wear every day.</p>"
+      "default": "<p>Every Candy Bead bracelet begins as an original design — a combination of color, texture, stones, pearls, and details chosen to capture a particular mood. Each piece is then assembled by hand, one bead at a time.</p>"
     },
     {
       "type": "text",
       "id": "quote",
-      "label": "Pull quote",
-      "default": "Jewelry is a small signal, but it can change the whole mood."
+      "label": "Pull quote"
     },
     {
       "type": "text",
       "id": "cta_label",
       "label": "Link label",
-      "default": "Discover our story"
+      "default": "DISCOVER OUR STORY"
     },
     {
       "type": "url",
