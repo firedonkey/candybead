@@ -1,0 +1,368 @@
+{% liquid
+  assign newsletter_image = section.settings.image
+  assign newsletter_alt = section.settings.image_alt | default: newsletter_image.alt | default: section.settings.heading | strip_html
+%}
+
+<section class="premium-newsletter premium-newsletter-{{ section.id }}">
+  <div class="premium-newsletter__inner">
+    <div class="premium-newsletter__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="premium-newsletter__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="premium-newsletter__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-newsletter__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% form 'customer', class: 'premium-newsletter__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="premium-newsletter__field">
+          <label class="visually-hidden" for="PremiumNewsletterEmail-{{ section.id }}">
+            Email address
+          </label>
+          <input
+            id="PremiumNewsletterEmail-{{ section.id }}"
+            class="premium-newsletter__input"
+            type="email"
+            name="contact[email]"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ section.settings.placeholder | escape }}"
+            required
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="PremiumNewsletterMessage-{{ section.id }}"
+            {% endif %}
+          >
+          <button class="premium-newsletter__button" type="submit">
+            {{ section.settings.button_label | escape }}
+          </button>
+        </div>
+
+        {% if form.posted_successfully? %}
+          <p class="premium-newsletter__message" id="PremiumNewsletterMessage-{{ section.id }}">
+            {{ section.settings.success_message | escape }}
+          </p>
+        {% elsif form.errors %}
+          <p class="premium-newsletter__message premium-newsletter__message--error" id="PremiumNewsletterMessage-{{ section.id }}">
+            {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+          </p>
+        {% endif %}
+      {% endform %}
+    </div>
+
+    <div class="premium-newsletter__media">
+      {% if newsletter_image != blank %}
+        {{
+          newsletter_image
+          | image_url: width: 1400
+          | image_tag:
+            widths: '420, 640, 900, 1200, 1400',
+            sizes: '(min-width: 990px) 44vw, 100vw',
+            alt: newsletter_alt,
+            class: 'premium-newsletter__image',
+            loading: 'lazy'
+        }}
+      {% else %}
+        {{ 'hero-apparel-3' | placeholder_svg_tag: 'premium-newsletter__placeholder' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .premium-newsletter-{{ section.id }} {
+    --premium-newsletter-bg: {{ section.settings.background_color }};
+    --premium-newsletter-text: {{ section.settings.text_color }};
+    --premium-newsletter-muted: {{ section.settings.muted_color }};
+    --premium-newsletter-accent: {{ section.settings.accent_color }};
+    background: var(--premium-newsletter-bg);
+    color: var(--premium-newsletter-text);
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__inner {
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 0.88fr) minmax(320px, 0.72fr);
+    gap: 48px;
+    align-items: center;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__eyebrow {
+    color: var(--premium-newsletter-accent);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__heading {
+    color: inherit;
+    font-family: var(--font-heading--family);
+    font-size: 4rem;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin: 0;
+    max-width: 12ch;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__text {
+    color: var(--premium-newsletter-muted);
+    font-size: 1.5rem;
+    line-height: 1.65;
+    letter-spacing: 0;
+    margin-top: 22px;
+    max-width: 560px;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__text p {
+    margin: 0;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__form {
+    margin-top: 32px;
+    max-width: 620px;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__field {
+    display: flex;
+    border-bottom: 1px solid rgb(255 255 255 / 0.42);
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__input {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    flex: 1;
+    min-width: 0;
+    padding: 15px 0;
+    font-size: 1.45rem;
+    letter-spacing: 0;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__input::placeholder {
+    color: rgb(255 255 255 / 0.58);
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__input:focus-visible {
+    outline: 2px solid var(--premium-newsletter-accent);
+    outline-offset: 4px;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__button {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    padding: 15px 0 15px 20px;
+    white-space: nowrap;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__message {
+    color: var(--premium-newsletter-accent);
+    font-size: 1.3rem;
+    line-height: 1.45;
+    letter-spacing: 0;
+    margin: 16px 0 0;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__message--error {
+    color: #ffdfd3;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__media {
+    aspect-ratio: 4 / 5;
+    background: #302b27;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .premium-newsletter-{{ section.id }} .premium-newsletter__image,
+  .premium-newsletter-{{ section.id }} .premium-newsletter__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-newsletter-{{ section.id }} .premium-newsletter__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .premium-newsletter-{{ section.id }} .premium-newsletter__heading {
+      font-size: 3.2rem;
+      max-width: 14ch;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-newsletter-{{ section.id }} .premium-newsletter__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-newsletter-{{ section.id }} .premium-newsletter__inner {
+      padding-block: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .premium-newsletter-{{ section.id }} .premium-newsletter__heading {
+      font-size: 2.8rem;
+    }
+
+    .premium-newsletter-{{ section.id }} .premium-newsletter__field {
+      display: grid;
+      gap: 14px;
+      border-bottom: 0;
+    }
+
+    .premium-newsletter-{{ section.id }} .premium-newsletter__input {
+      border-bottom: 1px solid rgb(255 255 255 / 0.42);
+    }
+
+    .premium-newsletter-{{ section.id }} .premium-newsletter__button {
+      min-height: 46px;
+      padding: 13px 18px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      justify-self: start;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium newsletter",
+  "class": "shopify-section--premium-newsletter",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The edit"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get first access to new drops"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Join for early looks at new arrivals, styling notes, and gift edits.</p>"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Email placeholder",
+      "default": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Sign up"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you for signing up."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#1c1917"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#d7d0c8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#d8c3a5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 40,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 40,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 28,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 28,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium newsletter"
+    }
+  ]
+}
+{% endschema %}

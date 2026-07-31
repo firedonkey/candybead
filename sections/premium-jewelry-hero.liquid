@@ -1,0 +1,385 @@
+{% liquid
+  assign hero_image = section.settings.image
+  assign hero_alt = section.settings.image_alt | default: hero_image.alt | default: section.settings.heading | strip_html
+  assign overlay_opacity = section.settings.overlay_opacity | times: 0.01
+%}
+
+<section class="premium-jewelry-hero premium-jewelry-hero-{{ section.id }}">
+  <div class="premium-jewelry-hero__media" aria-hidden="true">
+    {% if hero_image != blank %}
+      {{
+        hero_image
+        | image_url: width: 3200
+        | image_tag:
+          widths: '750, 1100, 1500, 2000, 2600, 3200',
+          sizes: '100vw',
+          alt: hero_alt,
+          class: 'premium-jewelry-hero__image',
+          loading: 'eager',
+          fetchpriority: 'high'
+      }}
+    {% else %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'premium-jewelry-hero__placeholder' }}
+    {% endif %}
+  </div>
+
+  <div class="premium-jewelry-hero__overlay"></div>
+
+  <div class="premium-jewelry-hero__inner">
+    <div class="premium-jewelry-hero__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="premium-jewelry-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="premium-jewelry-hero__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-jewelry-hero__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      <div class="premium-jewelry-hero__actions">
+        {% if section.settings.primary_label != blank %}
+          <a
+            class="premium-jewelry-hero__button premium-jewelry-hero__button--primary"
+            href="{{ section.settings.primary_link | default: '/collections/all' }}"
+          >
+            {{ section.settings.primary_label | escape }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank %}
+          <a
+            class="premium-jewelry-hero__button premium-jewelry-hero__button--secondary"
+            href="{{ section.settings.secondary_link | default: '/collections/all' }}"
+          >
+            {{ section.settings.secondary_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.note != blank %}
+        <p class="premium-jewelry-hero__note">{{ section.settings.note | escape }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .premium-jewelry-hero-{{ section.id }} {
+    --premium-hero-text: {{ section.settings.text_color }};
+    --premium-hero-overlay: {{ section.settings.overlay_color }};
+    --premium-hero-overlay-opacity: {{ overlay_opacity }};
+    --premium-hero-accent: {{ section.settings.accent_color }};
+    color: var(--premium-hero-text);
+    min-height: {{ section.settings.hero_height }}svh;
+    position: relative;
+    overflow: hidden;
+    background: #1c1917;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__media,
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__image,
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+    display: block;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__placeholder {
+    background: #302b27;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__overlay {
+    background: var(--premium-hero-overlay);
+    opacity: var(--premium-hero-overlay-opacity);
+    pointer-events: none;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    padding-block: 88px 72px;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__content {
+    max-width: 720px;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__eyebrow,
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__note {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__eyebrow {
+    color: var(--premium-hero-accent);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {
+    margin: 16px 0 0;
+    color: inherit;
+    font-family: var(--font-heading--family);
+    font-size: 7.2rem;
+    line-height: 0.96;
+    letter-spacing: 0;
+    max-width: 11ch;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__text {
+    margin-top: 24px;
+    max-width: 560px;
+    color: inherit;
+    font-size: 1.7rem;
+    line-height: 1.55;
+    letter-spacing: 0;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__text p {
+    margin: 0;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 34px;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__button {
+    min-height: 46px;
+    padding: 14px 22px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__button--primary {
+    background: var(--premium-hero-text);
+    color: #1c1917;
+    border: 1px solid var(--premium-hero-text);
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__button--secondary {
+    background: transparent;
+    border: 1px solid rgb(255 255 255 / 0.72);
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__button:hover {
+    background: var(--premium-hero-accent);
+    border-color: var(--premium-hero-accent);
+    color: #1c1917;
+  }
+
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__note {
+    margin-top: 22px;
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-jewelry-hero-{{ section.id }} {
+      min-height: 72svh;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
+      padding-block: 72px 56px;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {
+      font-size: 5.2rem;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-jewelry-hero-{{ section.id }} {
+      min-height: 68svh;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
+      padding-block: 60px 44px;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {
+      font-size: 3.6rem;
+      max-width: 10ch;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__text {
+      font-size: 1.45rem;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__actions {
+      width: 100%;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__button {
+      flex: 1 1 180px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium jewelry hero",
+  "class": "shopify-section--premium-jewelry-hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "range",
+      "id": "hero_height",
+      "label": "Desktop hero height",
+      "min": 58,
+      "max": 92,
+      "step": 1,
+      "unit": "vh",
+      "default": 78
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "New season edit"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Jewelry for the way the day feels"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Delicate color, polished metals, and quietly expressive pieces to layer, gift, and keep close.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop new arrivals"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Explore best sellers"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Small note",
+      "default": "Curated for stacking, gifting, and everyday ritual."
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#d8c3a5"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#171310"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "%",
+      "default": 42
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium jewelry hero"
+    }
+  ]
+}
+{% endschema %}

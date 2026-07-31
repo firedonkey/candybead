@@ -1,0 +1,298 @@
+<section class="premium-benefits premium-benefits-{{ section.id }}">
+  <div class="premium-benefits__inner">
+    <div class="premium-benefits__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="premium-benefits__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-benefits__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="premium-benefits__items">
+      {% for block in section.blocks %}
+        <div class="premium-benefits__item" {{ block.shopify_attributes }}>
+          {% if block.settings.marker != blank %}
+            <span class="premium-benefits__marker">{{ block.settings.marker | escape }}</span>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="premium-benefits__title">{{ block.settings.title | escape }}</h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <p class="premium-benefits__description">{{ block.settings.text | escape }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .premium-benefits-{{ section.id }} {
+    --premium-benefits-bg: {{ section.settings.background_color }};
+    --premium-benefits-text: {{ section.settings.text_color }};
+    --premium-benefits-muted: {{ section.settings.muted_color }};
+    --premium-benefits-accent: {{ section.settings.accent_color }};
+    background: var(--premium-benefits-bg);
+    color: var(--premium-benefits-text);
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__inner {
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__header {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(280px, 0.55fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 34px;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__heading {
+    color: inherit;
+    font-family: var(--font-heading--family);
+    font-size: 3.8rem;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__text {
+    color: var(--premium-benefits-muted);
+    font-size: 1.45rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__text p {
+    margin: 0;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgb(28 25 23 / 0.14);
+    border-left: 1px solid rgb(28 25 23 / 0.14);
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__item {
+    min-width: 0;
+    padding: 24px;
+    border-right: 1px solid rgb(28 25 23 / 0.14);
+    border-bottom: 1px solid rgb(28 25 23 / 0.14);
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__marker {
+    color: var(--premium-benefits-accent);
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0;
+    margin-bottom: 24px;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__title {
+    color: inherit;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .premium-benefits-{{ section.id }} .premium-benefits__description {
+    color: var(--premium-benefits-muted);
+    font-size: 1.32rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    margin: 10px 0 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-benefits-{{ section.id }} .premium-benefits__header {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .premium-benefits-{{ section.id }} .premium-benefits__heading {
+      font-size: 3rem;
+    }
+
+    .premium-benefits-{{ section.id }} .premium-benefits__items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-benefits-{{ section.id }} .premium-benefits__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-benefits-{{ section.id }} .premium-benefits__inner {
+      padding-block: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .premium-benefits-{{ section.id }} .premium-benefits__items {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium benefits",
+  "class": "shopify-section--premium-benefits",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Service details that make gifting easier"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Use this section for the shipping, return, care, payment, and packaging promises that matter most to your customers.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1c1917"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#6f6760"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#8c5e58"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 24,
+      "max": 88,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 24,
+      "max": 88,
+      "step": 4,
+      "unit": "px",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "marker",
+          "label": "Marker",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Secure checkout"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Protected Shopify checkout with familiar payment options."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Premium benefits",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "marker": "01",
+            "title": "Secure checkout",
+            "text": "Protected Shopify checkout with familiar payment options."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "marker": "02",
+            "title": "Wrapped with care",
+            "text": "A considered unboxing moment for gifting or keeping."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "marker": "03",
+            "title": "Care guidance",
+            "text": "Simple care details help each piece stay in rotation."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "marker": "04",
+            "title": "Support by email",
+            "text": "A clear path for sizing, styling, and order questions."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

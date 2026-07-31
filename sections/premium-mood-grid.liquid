@@ -1,0 +1,399 @@
+<section class="premium-mood-grid premium-mood-grid-{{ section.id }}">
+  <div class="premium-mood-grid__inner">
+    <div class="premium-mood-grid__header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="premium-mood-grid__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="premium-mood-grid__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="premium-mood-grid__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="premium-mood-grid__items">
+      {% for block in section.blocks %}
+        {% liquid
+          assign mood_collection = block.settings.collection
+          assign mood_image = block.settings.image
+          if mood_image == blank and mood_collection.image != blank
+            assign mood_image = mood_collection.image
+          endif
+          if mood_image == blank and mood_collection.products.first.featured_image != blank
+            assign mood_image = mood_collection.products.first.featured_image
+          endif
+
+          assign mood_url = block.settings.link
+          if mood_url == blank and mood_collection != blank
+            assign mood_url = mood_collection.url
+          endif
+          if mood_url == blank
+            assign mood_url = '/collections/all'
+          endif
+
+          assign mood_alt = mood_image.alt | default: block.settings.title | escape
+        %}
+
+        <a class="premium-mood-grid__item" href="{{ mood_url }}" {{ block.shopify_attributes }}>
+          <span class="premium-mood-grid__media">
+            {% if mood_image != blank %}
+              {{
+                mood_image
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '360, 520, 720, 900, 1200',
+                  sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                  alt: mood_alt,
+                  class: 'premium-mood-grid__image',
+                  loading: 'lazy'
+              }}
+            {% else %}
+              {{ 'collection-apparel-1' | placeholder_svg_tag: 'premium-mood-grid__placeholder' }}
+            {% endif %}
+          </span>
+
+          <span class="premium-mood-grid__content">
+            {% if block.settings.title != blank %}
+              <span class="premium-mood-grid__title">{{ block.settings.title | escape }}</span>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <span class="premium-mood-grid__description">{{ block.settings.text | escape }}</span>
+            {% endif %}
+            {% if block.settings.link_label != blank %}
+              <span class="premium-mood-grid__link">{{ block.settings.link_label | escape }}</span>
+            {% endif %}
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .premium-mood-grid-{{ section.id }} {
+    --premium-mood-bg: {{ section.settings.background_color }};
+    --premium-mood-text: {{ section.settings.text_color }};
+    --premium-mood-muted: {{ section.settings.muted_color }};
+    --premium-mood-accent: {{ section.settings.accent_color }};
+    background: var(--premium-mood-bg);
+    color: var(--premium-mood-text);
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__inner {
+    width: min(calc(100% - 32px), var(--normal-page-width, 120rem));
+    margin-inline: auto;
+    padding-block: {{ section.settings.padding_top }}px {{ section.settings.padding_bottom }}px;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__header {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(280px, 0.5fr);
+    gap: 28px;
+    align-items: end;
+    margin-bottom: 34px;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__eyebrow {
+    color: var(--premium-mood-accent);
+    font-size: 1.1rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__heading {
+    color: inherit;
+    font-family: var(--font-heading--family);
+    font-size: 4rem;
+    line-height: 1.08;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__text {
+    color: var(--premium-mood-muted);
+    font-size: 1.45rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+    max-width: 520px;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__text p {
+    margin: 0;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__item {
+    background: #ffffff;
+    border: 1px solid rgb(28 25 23 / 0.08);
+    border-radius: 6px;
+    color: inherit;
+    display: grid;
+    overflow: hidden;
+    text-decoration: none;
+    min-width: 0;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__media {
+    aspect-ratio: 1 / 1.08;
+    background: #e8ece6;
+    display: block;
+    overflow: hidden;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__image,
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 220ms ease;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__item:hover .premium-mood-grid__image {
+    transform: scale(1.025);
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__content {
+    display: grid;
+    gap: 8px;
+    padding: 18px;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__title {
+    color: inherit;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__description {
+    color: var(--premium-mood-muted);
+    font-size: 1.3rem;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  .premium-mood-grid-{{ section.id }} .premium-mood-grid__link {
+    color: var(--premium-mood-accent);
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__header {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__heading {
+      font-size: 3.2rem;
+    }
+
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__items {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__inner {
+      width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__inner {
+      padding-block: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__heading {
+      font-size: 2.8rem;
+    }
+
+    .premium-mood-grid-{{ section.id }} .premium-mood-grid__items {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Premium shop by mood",
+  "class": "shopify-section--premium-mood-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop by mood"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find the piece that matches the moment"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Curated paths into color, shine, sentiment, and celebration.</p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5f2f0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1c1917"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#6c635b"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#7b6758"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 84
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 32,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 84
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 24,
+      "max": 88,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile bottom padding",
+      "min": 24,
+      "max": 88,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mood",
+      "name": "Mood",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Everyday shine"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Easy pieces for repeat wear."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Shop the mood"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Custom link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Premium shop by mood",
+      "blocks": [
+        {
+          "type": "mood",
+          "settings": {
+            "title": "Everyday shine",
+            "text": "Soft sparkle for the daily stack."
+          }
+        },
+        {
+          "type": "mood",
+          "settings": {
+            "title": "Color ritual",
+            "text": "Candy-bright beads and playful accents."
+          }
+        },
+        {
+          "type": "mood",
+          "settings": {
+            "title": "Gift ready",
+            "text": "Pieces chosen for meaning and delight."
+          }
+        },
+        {
+          "type": "mood",
+          "settings": {
+            "title": "Evening polish",
+            "text": "Refined shine for after-dark plans."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

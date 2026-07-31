@@ -9,294 +9,256 @@
  */
 {
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "premium_hero": {
+      "type": "premium-jewelry-hero",
+      "name": "Luxury hero",
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
+        "image_alt": "Layered jewelry styled for a premium homepage",
+        "image_position": "center center",
+        "hero_height": 78,
+        "eyebrow": "New season edit",
+        "heading": "Jewelry for the way the day feels",
+        "text": "<p>Delicate color, polished metals, and quietly expressive pieces to layer, gift, and keep close.</p>",
+        "primary_label": "Shop new arrivals",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Explore best sellers",
+        "secondary_link": "shopify://collections/all",
+        "note": "Curated for stacking, gifting, and everyday ritual.",
+        "text_color": "#ffffff",
+        "accent_color": "#d8c3a5",
+        "overlay_color": "#171310",
+        "overlay_opacity": 42
+      }
+    },
+    "new_arrivals": {
+      "type": "premium-product-showcase",
+      "name": "New Arrivals",
+      "settings": {
+        "collection": "all",
+        "eyebrow": "New arrivals",
+        "heading": "The latest pieces to layer now",
+        "text": "<p>Fresh color, refined shine, and easy silhouettes selected for everyday styling.</p>",
+        "product_limit": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "show_vendor": false,
+        "show_badge": true,
+        "badge_text": "New",
+        "cta_label": "View all new arrivals",
+        "cta_link": "shopify://collections/all",
+        "background_color": "#ffffff",
+        "text_color": "#1c1917",
+        "muted_color": "#6f6760",
+        "accent_color": "#8c5e58",
+        "padding_top": 84,
+        "padding_bottom": 84,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 56
+      }
+    },
+    "shop_by_mood": {
+      "type": "premium-mood-grid",
+      "name": "Shop by Mood",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "mood_everyday": {
+          "type": "mood",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "text_color": "{{ settings.color_palette.background }}",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "collection": "all",
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
+            "title": "Everyday shine",
+            "text": "Soft sparkle for the daily stack.",
+            "link_label": "Shop the mood",
+            "link": "shopify://collections/all"
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "mood_color": {
+          "type": "mood",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-custom",
-            "custom_button_background": "rgba(0,0,0,0)",
-            "custom_button_text": "{{ settings.color_palette.background }}",
-            "custom_button_border": "{{ settings.color_palette.background }}",
-            "link_text_color": "",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "collection": "all",
+            "title": "Color ritual",
+            "text": "Candy-bright beads and playful accents.",
+            "link_label": "Shop the mood",
+            "link": "shopify://collections/all"
+          }
+        },
+        "mood_gift": {
+          "type": "mood",
+          "settings": {
+            "collection": "all",
+            "title": "Gift ready",
+            "text": "Pieces chosen for meaning and delight.",
+            "link_label": "Shop the mood",
+            "link": "shopify://collections/all"
+          }
+        },
+        "mood_evening": {
+          "type": "mood",
+          "settings": {
+            "collection": "all",
+            "title": "Evening polish",
+            "text": "Refined shine for after-dark plans.",
+            "link_label": "Shop the mood",
+            "link": "shopify://collections/all"
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "mood_everyday",
+        "mood_color",
+        "mood_gift",
+        "mood_evening"
       ],
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "image_1": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "background_color": "rgba(0,0,0,0)",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "eyebrow": "Shop by mood",
+        "heading": "Find the piece that matches the moment",
+        "text": "<p>Curated paths into color, shine, sentiment, and celebration.</p>",
+        "background_color": "#f5f2f0",
+        "text_color": "#1c1917",
+        "muted_color": "#6c635b",
+        "accent_color": "#7b6758",
+        "padding_top": 84,
+        "padding_bottom": 84,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 56
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "background_media": "none",
-            "background_color": "",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "custom_button_background": "{{ settings.color_palette.foreground }}",
-                "custom_button_text": "{{ settings.color_palette.background }}",
-                "custom_button_border": "{{ settings.color_palette.background }}",
-                "link_text_color": "",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "background_color": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_color": "",
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_color": "",
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "text_color": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
-      },
-      "name": "Featured collection",
+    "brand_story": {
+      "type": "premium-brand-story",
+      "name": "Brand Story",
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
+        "image_alt": "Editorial jewelry styling for the Candy Bead brand story",
+        "accent_image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
+        "accent_image_alt": "Close-up jewelry detail",
+        "eyebrow": "Our story",
+        "heading": "Small adornments, chosen with feeling",
+        "text": "<p>Candy Bead is built around the intimate ritual of choosing what to wear close: color for confidence, shine for ceremony, and details that make the everyday feel considered.</p><p>Each homepage edit can be tuned by collection, mood, and moment from the theme editor.</p>",
+        "quote": "Jewelry is a small signal, but it can change the whole mood.",
+        "cta_label": "Shop the full collection",
+        "cta_link": "shopify://collections/all",
+        "background_color": "#e8ece6",
+        "text_color": "#1c1917",
+        "muted_color": "#5f6159",
+        "accent_color": "#8c5e58",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
+      }
+    },
+    "best_sellers": {
+      "type": "premium-product-showcase",
+      "name": "Best Sellers",
       "settings": {
         "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
+        "eyebrow": "Best sellers",
+        "heading": "The pieces customers keep choosing",
+        "text": "<p>Trusted favorites for easy gifting, refined stacking, and repeat wear.</p>",
+        "product_limit": 8,
         "columns": 4,
         "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "show_vendor": false,
+        "show_badge": false,
+        "badge_text": "Favorite",
+        "cta_label": "Shop best sellers",
+        "cta_link": "shopify://collections/all",
+        "background_color": "#ffffff",
+        "text_color": "#1c1917",
+        "muted_color": "#6f6760",
+        "accent_color": "#7b6758",
+        "padding_top": 88,
+        "padding_bottom": 80,
+        "mobile_padding_top": 56,
+        "mobile_padding_bottom": 52
+      }
+    },
+    "benefits": {
+      "type": "premium-benefits",
+      "name": "Trust and Benefits",
+      "blocks": {
+        "benefit_checkout": {
+          "type": "benefit",
+          "settings": {
+            "marker": "01",
+            "title": "Secure checkout",
+            "text": "Protected Shopify checkout with familiar payment options."
+          }
+        },
+        "benefit_packaging": {
+          "type": "benefit",
+          "settings": {
+            "marker": "02",
+            "title": "Wrapped with care",
+            "text": "A considered unboxing moment for gifting or keeping."
+          }
+        },
+        "benefit_care": {
+          "type": "benefit",
+          "settings": {
+            "marker": "03",
+            "title": "Care guidance",
+            "text": "Simple care details help each piece stay in rotation."
+          }
+        },
+        "benefit_support": {
+          "type": "benefit",
+          "settings": {
+            "marker": "04",
+            "title": "Support by email",
+            "text": "A clear path for sizing, styling, and order questions."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_checkout",
+        "benefit_packaging",
+        "benefit_care",
+        "benefit_support"
+      ],
+      "settings": {
+        "heading": "Service details that make gifting easier",
+        "text": "<p>Use this section for the shipping, return, care, payment, and packaging promises that matter most to your customers.</p>",
+        "background_color": "#ffffff",
+        "text_color": "#1c1917",
+        "muted_color": "#6f6760",
+        "accent_color": "#8c5e58",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 52,
+        "mobile_padding_bottom": 52
+      }
+    },
+    "newsletter": {
+      "type": "premium-newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
+        "image_alt": "Jewelry styling image for newsletter signup",
+        "eyebrow": "The edit",
+        "heading": "Get first access to new drops",
+        "text": "<p>Join for early looks at new arrivals, styling notes, and gift edits.</p>",
+        "placeholder": "Email address",
+        "button_label": "Sign up",
+        "success_message": "Thank you for signing up.",
+        "background_color": "#1c1917",
+        "text_color": "#ffffff",
+        "muted_color": "#d7d0c8",
+        "accent_color": "#d8c3a5",
+        "padding_top": 88,
+        "padding_bottom": 88,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "premium_hero",
+    "new_arrivals",
+    "shop_by_mood",
+    "brand_story",
+    "best_sellers",
+    "benefits",
+    "newsletter"
   ]
 }
