@@ -25,6 +25,25 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    {% if template.name == 'index' %}
+      {% style %}
+        @font-face {
+          font-family: 'Spectral';
+          font-style: normal;
+          font-weight: 300;
+          font-display: swap;
+          src: url({{ 'spectral-light.ttf' | asset_url }}) format('truetype');
+        }
+
+        @font-face {
+          font-family: 'Spectral';
+          font-style: normal;
+          font-weight: 400;
+          font-display: swap;
+          src: url({{ 'spectral-regular.ttf' | asset_url }}) format('truetype');
+        }
+      {% endstyle %}
+    {% endif %}
     {%- render 'stylesheets' -%}
     {%- render 'fonts' -%}
     {%- render 'scripts' -%}

@@ -72,6 +72,7 @@
     --premium-hero-overlay: {{ section.settings.overlay_color }};
     --premium-hero-overlay-opacity: {{ overlay_opacity }};
     --premium-hero-accent: {{ section.settings.accent_color }};
+    --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
     color: var(--premium-hero-text);
     min-height: {{ section.settings.hero_height }}svh;
     position: relative;
@@ -135,7 +136,9 @@
   .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {
     margin: 16px 0 0;
     color: inherit;
-    font-family: var(--font-heading--family);
+    font-family: var(--premium-editorial-heading-font);
+    font-style: normal;
+    font-weight: 300;
     font-size: 7.2rem;
     line-height: 0.96;
     letter-spacing: 0;

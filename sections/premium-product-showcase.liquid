@@ -114,6 +114,7 @@
     --premium-showcase-text: {{ section.settings.text_color }};
     --premium-showcase-muted: {{ section.settings.muted_color }};
     --premium-showcase-accent: {{ section.settings.accent_color }};
+    --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
     background: var(--premium-showcase-bg);
     color: var(--premium-showcase-text);
   }
@@ -149,7 +150,9 @@
 
   .premium-product-showcase-{{ section.id }} .premium-product-showcase__heading {
     color: inherit;
-    font-family: var(--font-heading--family);
+    font-family: var(--premium-editorial-heading-font);
+    font-style: normal;
+    font-weight: 300;
     font-size: 4.2rem;
     line-height: 1.05;
     letter-spacing: 0;

@@ -81,6 +81,7 @@
     --premium-newsletter-text: {{ section.settings.text_color }};
     --premium-newsletter-muted: {{ section.settings.muted_color }};
     --premium-newsletter-accent: {{ section.settings.accent_color }};
+    --premium-editorial-heading-font: 'Spectral', Georgia, 'Times New Roman', serif;
     background: var(--premium-newsletter-bg);
     color: var(--premium-newsletter-text);
   }
@@ -107,7 +108,9 @@
 
   .premium-newsletter-{{ section.id }} .premium-newsletter__heading {
     color: inherit;
-    font-family: var(--font-heading--family);
+    font-family: var(--premium-editorial-heading-font);
+    font-style: normal;
+    font-weight: 300;
     font-size: 4rem;
     line-height: 1.08;
     letter-spacing: 0;
