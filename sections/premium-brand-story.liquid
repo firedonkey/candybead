@@ -4,75 +4,156 @@
     assign story_collection = collections.all
   endif
 
-  assign fallback_story_image = blank
-  assign fallback_accent_image = blank
+  assign fallback_image_1 = blank
+  assign fallback_image_2 = blank
+  assign fallback_image_3 = blank
+  assign fallback_image_4 = blank
   if story_collection != blank and story_collection.products_count > 0
-    for product in story_collection.products limit: 2
+    for product in story_collection.products limit: 4
       assign product_image = product.featured_media.preview_image | default: product.featured_image
-      if forloop.first
-        assign fallback_story_image = product_image
-      else
-        assign fallback_accent_image = product_image
-      endif
+      case forloop.index
+        when 1
+          assign fallback_image_1 = product_image
+        when 2
+          assign fallback_image_2 = product_image
+        when 3
+          assign fallback_image_3 = product_image
+        when 4
+          assign fallback_image_4 = product_image
+      endcase
     endfor
   endif
-  assign fallback_accent_image = fallback_accent_image | default: fallback_story_image
 
-  assign story_image = section.settings.image
-  assign accent_image = section.settings.accent_image
-  assign story_image_class = 'premium-brand-story__image'
-  assign accent_image_class = 'premium-brand-story__image'
+  assign collage_image_1 = section.settings.image_1
+  assign collage_image_2 = section.settings.image_2
+  assign collage_image_3 = section.settings.image_3
+  assign collage_image_4 = section.settings.image_4
 
-  if story_image == blank and fallback_story_image != blank
-    assign story_image = fallback_story_image
-    assign story_image_class = story_image_class | append: ' premium-brand-story__image--product'
+  if collage_image_1 == blank
+    assign collage_image_1 = section.settings.image | default: fallback_image_1
   endif
 
-  if accent_image == blank and fallback_accent_image != blank
-    assign accent_image = fallback_accent_image
-    assign accent_image_class = accent_image_class | append: ' premium-brand-story__image--product'
+  if collage_image_2 == blank
+    assign collage_image_2 = section.settings.accent_image | default: fallback_image_2
   endif
 
-  assign story_alt = section.settings.image_alt | default: story_image.alt | default: section.settings.heading | strip_html
-  assign accent_alt = section.settings.accent_image_alt | default: accent_image.alt | default: section.settings.heading | strip_html
+  if collage_image_3 == blank
+    assign collage_image_3 = fallback_image_3
+  endif
+
+  if collage_image_4 == blank
+    assign collage_image_4 = fallback_image_4
+  endif
+
+  assign collage_image_1_alt = section.settings.image_1_alt | default: section.settings.image_alt | default: collage_image_1.alt | default: section.settings.heading | strip_html
+  assign collage_image_2_alt = section.settings.image_2_alt | default: section.settings.accent_image_alt | default: collage_image_2.alt | default: section.settings.heading | strip_html
+  assign collage_image_3_alt = section.settings.image_3_alt | default: collage_image_3.alt | default: section.settings.heading | strip_html
+  assign collage_image_4_alt = section.settings.image_4_alt | default: collage_image_4.alt | default: section.settings.heading | strip_html
+
+  assign collage_image_count = 0
+  if collage_image_1 != blank
+    assign collage_image_count = collage_image_count | plus: 1
+  endif
+  if collage_image_2 != blank
+    assign collage_image_count = collage_image_count | plus: 1
+  endif
+  if collage_image_3 != blank
+    assign collage_image_count = collage_image_count | plus: 1
+  endif
+  if collage_image_4 != blank
+    assign collage_image_count = collage_image_count | plus: 1
+  endif
 %}
 
 <section id="our-story" class="premium-brand-story premium-brand-story-{{ section.id }}">
   <div class="premium-brand-story__inner">
-    <div class="premium-brand-story__media">
-      <div class="premium-brand-story__image-wrap premium-brand-story__image-wrap--main">
-        {% if story_image != blank %}
-          {{
-            story_image
-            | image_url: width: 1600
-            | image_tag:
-              widths: '480, 720, 960, 1200, 1600',
-              sizes: '(min-width: 990px) 48vw, 100vw',
-              alt: story_alt,
-              class: story_image_class,
-              loading: 'lazy'
-          }}
-        {% else %}
-          {{ 'hero-apparel-2' | placeholder_svg_tag: 'premium-brand-story__placeholder' }}
-        {% endif %}
-      </div>
+    <div class="premium-brand-story__media" data-image-count="{{ collage_image_count }}">
+      {% if collage_image_count > 0 %}
+        <div class="premium-brand-story__collage">
+          {% liquid
+            assign collage_position = 0
+          %}
 
-      <div class="premium-brand-story__image-wrap premium-brand-story__image-wrap--accent">
-        {% if accent_image != blank %}
+          {% if collage_image_1 != blank %}
+            {% liquid
+              assign collage_position = collage_position | plus: 1
+            %}
+            <div class="premium-brand-story__collage-card premium-brand-story__collage-card--{{ collage_position }}">
+              {{
+                collage_image_1
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '360, 480, 640, 820, 1000, 1200',
+                  sizes: '(min-width: 990px) 28vw, (min-width: 750px) 42vw, 48vw',
+                  alt: collage_image_1_alt,
+                  class: 'premium-brand-story__image',
+                  loading: 'lazy'
+              }}
+            </div>
+          {% endif %}
+
+          {% if collage_image_2 != blank %}
+            {% liquid
+              assign collage_position = collage_position | plus: 1
+            %}
+            <div class="premium-brand-story__collage-card premium-brand-story__collage-card--{{ collage_position }}">
+              {{
+                collage_image_2
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '360, 480, 640, 820, 1000, 1200',
+                  sizes: '(min-width: 990px) 28vw, (min-width: 750px) 42vw, 48vw',
+                  alt: collage_image_2_alt,
+                  class: 'premium-brand-story__image',
+                  loading: 'lazy'
+              }}
+            </div>
+          {% endif %}
+
+          {% if collage_image_3 != blank %}
+            {% liquid
+              assign collage_position = collage_position | plus: 1
+            %}
+            <div class="premium-brand-story__collage-card premium-brand-story__collage-card--{{ collage_position }}">
+              {{
+                collage_image_3
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '360, 480, 640, 820, 1000, 1200',
+                  sizes: '(min-width: 990px) 28vw, (min-width: 750px) 42vw, 48vw',
+                  alt: collage_image_3_alt,
+                  class: 'premium-brand-story__image',
+                  loading: 'lazy'
+              }}
+            </div>
+          {% endif %}
+
+          {% if collage_image_4 != blank %}
+            {% liquid
+              assign collage_position = collage_position | plus: 1
+            %}
+            <div class="premium-brand-story__collage-card premium-brand-story__collage-card--{{ collage_position }}">
+              {{
+                collage_image_4
+                | image_url: width: 1200
+                | image_tag:
+                  widths: '360, 480, 640, 820, 1000, 1200',
+                  sizes: '(min-width: 990px) 28vw, (min-width: 750px) 42vw, 48vw',
+                  alt: collage_image_4_alt,
+                  class: 'premium-brand-story__image',
+                  loading: 'lazy'
+              }}
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="premium-brand-story__collage premium-brand-story__collage--placeholder">
           {{
-            accent_image
-            | image_url: width: 900
-            | image_tag:
-              widths: '320, 480, 640, 900',
-              sizes: '(min-width: 990px) 24vw, 48vw',
-              alt: accent_alt,
-              class: accent_image_class,
-              loading: 'lazy'
+            'hero-apparel-2'
+            | placeholder_svg_tag: 'premium-brand-story__placeholder'
           }}
-        {% else %}
-          {{ 'detailed-apparel-1' | placeholder_svg_tag: 'premium-brand-story__placeholder' }}
-        {% endif %}
-      </div>
+        </div>
+      {% endif %}
     </div>
 
     <div class="premium-brand-story__content">
@@ -129,27 +210,107 @@
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__media {
     position: relative;
+    min-width: 0;
   }
 
-  .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap {
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage {
+    aspect-ratio: 1 / 1;
+    isolation: isolate;
+    margin-inline: auto;
+    max-width: 680px;
+    position: relative;
+    width: 100%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage--placeholder {
     background: var(--premium-story-paper);
-    border: 1px solid rgb(29 28 26 / 0.08);
+    border: 1px solid rgb(29 28 26 / 0.06);
     border-radius: 2px;
     overflow: hidden;
   }
 
-  .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--main {
-    aspect-ratio: 5 / 6;
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card {
+    --premium-story-card-rotation: 0deg;
+    --premium-story-card-scale: 1;
+    aspect-ratio: 4 / 5;
+    background: var(--premium-story-paper);
+    border: 1px solid rgb(29 28 26 / 0.06);
+    border-radius: 2px;
+    box-shadow:
+      0 10px 30px rgb(29 28 26 / 0.06),
+      0 2px 8px rgb(29 28 26 / 0.04);
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: clamp(7px, 1vw, 12px);
+    position: absolute;
+    transform: rotate(var(--premium-story-card-rotation)) scale(var(--premium-story-card-scale));
+    transform-origin: center;
+    transition:
+      box-shadow 220ms ease,
+      transform 220ms ease;
+    width: 54%;
+    z-index: 1;
   }
 
-  .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--accent {
-    aspect-ratio: 3 / 4;
-    border: 10px solid var(--premium-story-bg);
-    bottom: -30px;
-    max-width: 230px;
-    position: absolute;
-    right: -24px;
-    width: 38%;
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--1 {
+    --premium-story-card-rotation: -3deg;
+    left: 1%;
+    top: 5%;
+    z-index: 1;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--2 {
+    --premium-story-card-rotation: 2deg;
+    right: 2%;
+    top: 0;
+    z-index: 2;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--3 {
+    --premium-story-card-rotation: -2deg;
+    bottom: 2%;
+    left: 7%;
+    z-index: 3;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--4 {
+    --premium-story-card-rotation: 2deg;
+    bottom: 7%;
+    right: 0;
+    z-index: 4;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='1'] .premium-brand-story__collage-card--1 {
+    left: 18%;
+    top: 6%;
+    width: 64%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='2'] .premium-brand-story__collage-card--1 {
+    left: 4%;
+    top: 13%;
+    width: 56%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='2'] .premium-brand-story__collage-card--2 {
+    right: 4%;
+    top: 27%;
+    width: 56%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--1 {
+    left: 2%;
+    top: 7%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--2 {
+    right: 2%;
+    top: 9%;
+  }
+
+  .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--3 {
+    bottom: 2%;
+    left: 23%;
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__image,
@@ -160,15 +321,27 @@
     display: block;
   }
 
-  .premium-brand-story-{{ section.id }} .premium-brand-story__image--product {
-    background: #ffffff;
-    box-sizing: border-box;
-    object-fit: contain;
-    padding: clamp(24px, 5vw, 56px);
+  .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card .premium-brand-story__image {
+    border-radius: 1px;
   }
 
-  .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--accent .premium-brand-story__image--product {
-    padding: clamp(14px, 3vw, 28px);
+  @media (hover: hover) and (pointer: fine) {
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card:hover {
+      --premium-story-card-scale: 1.015;
+      box-shadow:
+        0 14px 34px rgb(29 28 26 / 0.08),
+        0 3px 10px rgb(29 28 26 / 0.05);
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--1:hover,
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--3:hover {
+      --premium-story-card-rotation: -1deg;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--2:hover,
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--4:hover {
+      --premium-story-card-rotation: 1deg;
+    }
   }
 
   .premium-brand-story-{{ section.id }} .premium-brand-story__eyebrow {
@@ -268,6 +441,36 @@
     }
   }
 
+  @media screen and (min-width: 990px) and (max-width: 1099px) {
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card {
+      width: 52%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--1 {
+      --premium-story-card-rotation: -2deg;
+      left: 2%;
+      top: 7%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--2 {
+      --premium-story-card-rotation: 1.5deg;
+      right: 2%;
+      top: 3%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--3 {
+      --premium-story-card-rotation: -1.5deg;
+      bottom: 4%;
+      left: 9%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--4 {
+      --premium-story-card-rotation: 1.5deg;
+      bottom: 8%;
+      right: 1%;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .premium-brand-story-{{ section.id }} .premium-brand-story__inner {
       width: min(calc(100% - 80px), var(--normal-page-width, 120rem));
@@ -280,11 +483,92 @@
     }
 
     .premium-brand-story-{{ section.id }} .premium-brand-story__media {
-      grid-template-columns: 1fr;
+      overflow: visible;
     }
 
-    .premium-brand-story-{{ section.id }} .premium-brand-story__image-wrap--accent {
-      display: none;
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage {
+      aspect-ratio: 1 / 0.92;
+      max-width: 520px;
+      width: min(100%, 520px);
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card {
+      aspect-ratio: 1 / 1.12;
+      padding: 6px;
+      width: 52%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--1 {
+      --premium-story-card-rotation: -1.5deg;
+      left: 0;
+      top: 4%;
+      z-index: 1;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--2 {
+      --premium-story-card-rotation: 1deg;
+      right: 0;
+      top: 9%;
+      z-index: 2;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--3 {
+      --premium-story-card-rotation: -1deg;
+      bottom: 2%;
+      left: 2%;
+      z-index: 3;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card--4 {
+      --premium-story-card-rotation: 1.2deg;
+      bottom: 0;
+      right: 2%;
+      z-index: 4;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='1'] .premium-brand-story__collage {
+      aspect-ratio: 4 / 3;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='1'] .premium-brand-story__collage-card--1 {
+      left: 12%;
+      top: 0;
+      width: 76%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='2'] .premium-brand-story__collage {
+      aspect-ratio: 1 / 0.74;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='2'] .premium-brand-story__collage-card--1 {
+      left: 2%;
+      top: 4%;
+      width: 54%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='2'] .premium-brand-story__collage-card--2 {
+      right: 2%;
+      top: 18%;
+      width: 54%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage {
+      aspect-ratio: 1 / 0.9;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--1 {
+      left: 0;
+      top: 3%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--2 {
+      right: 0;
+      top: 8%;
+    }
+
+    .premium-brand-story-{{ section.id }} .premium-brand-story__media[data-image-count='3'] .premium-brand-story__collage-card--3 {
+      bottom: 0;
+      left: 23%;
     }
 
     .premium-brand-story-{{ section.id }} .premium-brand-story__heading {
@@ -294,15 +578,12 @@
     .premium-brand-story-{{ section.id }} .premium-brand-story__quote {
       font-size: 1.6rem;
     }
-
-    .premium-brand-story-{{ section.id }} .premium-brand-story__image--product {
-      padding: 24px;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .premium-brand-story-{{ section.id }} .premium-brand-story__link,
-    .premium-brand-story-{{ section.id }} .premium-brand-story__link::after {
+    .premium-brand-story-{{ section.id }} .premium-brand-story__link::after,
+    .premium-brand-story-{{ section.id }} .premium-brand-story__collage-card {
       transition: none;
     }
   }
@@ -315,23 +596,71 @@
   "settings": [
     {
       "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1"
+    },
+    {
+      "type": "text",
+      "id": "image_1_alt",
+      "label": "Image 1 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2"
+    },
+    {
+      "type": "text",
+      "id": "image_2_alt",
+      "label": "Image 2 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3"
+    },
+    {
+      "type": "text",
+      "id": "image_3_alt",
+      "label": "Image 3 alt text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4"
+    },
+    {
+      "type": "text",
+      "id": "image_4_alt",
+      "label": "Image 4 alt text"
+    },
+    {
+      "type": "header",
+      "content": "Legacy image fallbacks"
+    },
+    {
+      "type": "paragraph",
+      "content": "Existing saved images still work as fallbacks for image 1 and image 2."
+    },
+    {
+      "type": "image_picker",
       "id": "image",
-      "label": "Main image"
+      "label": "Legacy main image"
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "Main image alt text"
+      "label": "Legacy main image alt text"
     },
     {
       "type": "image_picker",
       "id": "accent_image",
-      "label": "Accent image"
+      "label": "Legacy accent image"
     },
     {
       "type": "text",
       "id": "accent_image_alt",
-      "label": "Accent image alt text"
+      "label": "Legacy accent image alt text"
     },
     {
       "type": "collection",

@@ -116,6 +116,12 @@
         "label": "t:options.accent"
       },
       {
+        "type": "font_picker",
+        "id": "type_logo_wordmark_font",
+        "default": "playfair_display_n6",
+        "label": "Logo wordmark"
+      },
+      {
         "type": "header",
         "content": "t:content.text_presets"
       },
