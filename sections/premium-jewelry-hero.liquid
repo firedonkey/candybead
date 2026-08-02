@@ -19,7 +19,15 @@
           fetchpriority: 'high'
       }}
     {% else %}
-      {{ 'hero-apparel-1' | placeholder_svg_tag: 'premium-jewelry-hero__placeholder' }}
+      <img
+        src="{{ 'candybead-hero-v2.png' | asset_url }}"
+        alt="{{ hero_alt | escape }}"
+        width="1774"
+        height="887"
+        class="premium-jewelry-hero__image"
+        loading="eager"
+        fetchpriority="high"
+      >
     {% endif %}
   </div>
 
@@ -234,15 +242,15 @@
 
   @media screen and (min-width: 990px) {
     .premium-jewelry-hero-{{ section.id }} {
-      min-height: clamp(600px, 33.34375vw, 780px);
+      min-height: clamp(680px, 44vw, 900px);
     }
 
     .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__image {
-      object-fit: contain;
+      object-fit: cover;
     }
 
     .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
-      padding-block: 64px;
+      padding-block: 48px;
     }
 
     .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {

@@ -13,7 +13,6 @@
       "type": "premium-jewelry-hero",
       "name": "Luxury hero",
       "settings": {
-        "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_08_24_31_PM.png",
         "image_alt": "Layered jewelry styled for a premium homepage",
         "image_position": "center center",
         "hero_height": 78,
