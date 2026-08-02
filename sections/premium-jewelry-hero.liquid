@@ -92,6 +92,10 @@
     inset: 0;
   }
 
+  .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__media {
+    background: #c8b5aa;
+  }
+
   .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__image,
   .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__placeholder {
     width: 100%;
@@ -226,6 +230,37 @@
     margin-top: 22px;
     color: rgb(250 248 245 / 0.74);
     letter-spacing: 0.02em;
+  }
+
+  @media screen and (min-width: 990px) {
+    .premium-jewelry-hero-{{ section.id }} {
+      min-height: clamp(600px, 33.34375vw, 780px);
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__image {
+      object-fit: contain;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__inner {
+      padding-block: 64px;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__heading {
+      font-size: clamp(5.2rem, 4.4vw, 7.2rem);
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__text {
+      margin-top: 18px;
+      font-size: 1.55rem;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__actions {
+      margin-top: 26px;
+    }
+
+    .premium-jewelry-hero-{{ section.id }} .premium-jewelry-hero__note {
+      margin-top: 16px;
+    }
   }
 
   @media screen and (max-width: 989px) {
